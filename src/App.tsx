@@ -305,74 +305,43 @@ const Pricing = () => (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-100/30 rounded-full blur-[150px] pointer-events-none"></div>
     <div className="max-w-7xl mx-auto relative z-10">
       <div className="text-center mb-12 md:mb-24">
-        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Tarifs <br />Transparents.</h2>
-        <p className="text-base md:text-xl text-slate-500 font-medium">Pas de frais cachés. Pas d'abonnement mensuel.</p>
+        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Tarif <br />Unique.</h2>
+        <p className="text-base md:text-xl text-slate-500 font-medium">Tout ce dont vous avez besoin pour réussir en ligne.</p>
       </div>
       
-      <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-        {/* Plan 1 */}
-        <div className="group bento-card p-6 md:p-12 flex flex-col relative overflow-hidden">
-          <div className="mb-8 md:mb-12">
-            <div className="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-4 md:mb-6">Essentiel</div>
-            <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 md:mb-6 uppercase tracking-tighter">Landing Page</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter">650</span>
-              <span className="text-xl md:text-2xl font-black text-slate-400 uppercase">DH</span>
-            </div>
-            <p className="text-slate-400 font-black mt-2 md:mt-4 uppercase tracking-[0.2em] text-[8px] md:text-[10px]">Paiement unique</p>
-          </div>
-          <ul className="space-y-4 md:space-y-6 mb-8 md:mb-12 flex-grow">
-            {[
-              "Site 1 page (Landing Page)",
-              "Design professionnel & Moderne",
-              "Intégration WhatsApp Direct",
-              "Livraison en 72h",
-              "Hébergement offert (1 an)"
-            ].map((item, i) => (
-              <li key={i} className="flex items-center gap-3 md:gap-4 text-slate-600 font-bold text-xs md:text-sm">
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={12} className="text-slate-400 group-hover:text-green-500 transition-colors" />
-                </div>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <a 
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full py-4 md:py-6 rounded-xl md:rounded-2xl bg-slate-900 text-white font-black text-center hover:bg-brand-600 transition-all uppercase tracking-widest text-[10px] md:text-xs shadow-xl"
-          >
-            Choisir ce plan
-          </a>
-        </div>
-
-        {/* Plan 2 */}
-        <div className="bg-slate-900 p-6 md:p-12 rounded-2xl md:rounded-[3rem] shadow-[0_20px_40px_-10px_rgba(2,109,198,0.2)] md:shadow-[0_40px_80px_-15px_rgba(2,109,198,0.3)] flex flex-col relative overflow-hidden transform md:scale-105 z-10 border border-white/10 mt-4 md:mt-0">
+      <div className="max-w-2xl mx-auto">
+        <div className="bg-slate-900 p-8 md:p-16 rounded-2xl md:rounded-[4rem] shadow-[0_40px_80px_-15px_rgba(2,109,198,0.3)] flex flex-col relative overflow-hidden border border-white/10">
           <div className="absolute top-0 right-0 bg-brand-500 text-white px-6 md:px-10 py-2 md:py-3 rounded-bl-xl md:rounded-bl-[2rem] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em]">
-            Populaire
+            Offre Limitée
           </div>
-          <div className="mb-8 md:mb-12">
-            <div className="inline-block px-3 py-1 rounded-full bg-white/10 text-brand-400 text-[9px] md:text-[10px] font-black uppercase tracking-widest mb-4 md:mb-6">Business</div>
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-4 md:mb-6 uppercase tracking-tighter">Site Complet</h3>
-            <div className="flex items-baseline gap-2">
-              <span className="text-5xl md:text-7xl font-black text-white tracking-tighter">1300</span>
-              <span className="text-xl md:text-2xl font-black text-brand-500 uppercase">DH</span>
+          <div className="mb-10 md:mb-16">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-brand-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 md:mb-8">Pack Visibilité Pro</div>
+            <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Clé en main</h3>
+            <div className="flex items-baseline gap-3">
+              <span className="text-6xl md:text-9xl font-black text-white tracking-tighter">999</span>
+              <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
             </div>
-            <p className="text-slate-400 font-black mt-2 md:mt-4 uppercase tracking-[0.2em] text-[8px] md:text-[10px]">Paiement unique</p>
+            <p className="text-slate-400 font-black mt-4 md:mt-6 uppercase tracking-[0.2em] text-[10px] md:text-xs">Paiement unique</p>
+            <div className="mt-6 p-4 bg-white/5 rounded-2xl border border-white/10">
+              <p className="text-brand-400 font-bold text-xs md:text-sm">
+                + 150 DH pour le nom de domaine .com (si disponible)
+              </p>
+            </div>
           </div>
-          <ul className="space-y-4 md:space-y-6 mb-8 md:mb-12 flex-grow">
+          <ul className="grid sm:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
             {[
-              "Site multi-pages (jusqu'à 5)",
-              "Design Premium & Personnalisé",
-              "SEO Local (Google Maps)",
-              "WhatsApp + Formulaire contact",
-              "Livraison en 72h",
-              "Nom de domaine .ma / .com offert"
+              "Site professionnel ultra-rapide",
+              "Design moderne & responsive",
+              "Intégration WhatsApp directe",
+              "Livraison garantie en 72h",
+              "Hébergement haute performance",
+              "Optimisation SEO de base",
+              "Support technique inclus",
+              "Sécurité SSL (HTTPS)"
             ].map((item, i) => (
-              <li key={i} className="flex items-center gap-3 md:gap-4 text-slate-300 font-bold text-xs md:text-sm">
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={12} className="text-brand-500" />
+              <li key={i} className="flex items-center gap-3 md:gap-4 text-slate-300 font-bold text-xs md:text-base">
+                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <CheckCircle2 size={14} className="text-brand-500" />
                 </div>
                 {item}
               </li>
@@ -382,9 +351,9 @@ const Pricing = () => (
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-4 md:py-6 rounded-xl md:rounded-2xl bg-brand-600 text-white font-black text-center hover:bg-brand-500 transition-all shadow-xl uppercase tracking-widest text-[10px] md:text-xs"
+            className="w-full py-5 md:py-8 rounded-2xl md:rounded-3xl bg-brand-600 text-white font-black text-center hover:bg-brand-500 transition-all shadow-2xl uppercase tracking-widest text-xs md:text-lg"
           >
-            Commander maintenant
+            Lancer mon projet maintenant
           </a>
         </div>
       </div>
@@ -523,7 +492,7 @@ const FAQ = () => {
     { q: "Est-ce que je dois fournir le contenu ?", a: "Si vous avez des photos et textes, c'est parfait. Sinon, nous pouvons vous aider à rédiger et choisir des images professionnelles adaptées à votre métier." },
     { q: "Le site fonctionne-t-il sur téléphone ?", a: "Absolument. Tous nos sites sont 'Mobile-First', ce qui signifie qu'ils sont parfaitement optimisés pour les smartphones." },
     { q: "Comment se passe le paiement ?", a: "Nous demandons un acompte de 50% au lancement et le solde à la livraison du site." },
-    { q: "Y a-t-il des frais mensuels ?", a: "Non. L'hébergement est offert la première année. Ensuite, il faudra simplement renouveler votre nom de domaine et hébergement (environ 300-400 DH/an)." }
+    { q: "Y a-t-il des frais mensuels ?", a: "Non. L'hébergement est inclus. Il faudra simplement renouveler votre nom de domaine chaque année (environ 150-200 DH/an selon l'extension)." }
   ];
 
   return (
@@ -604,11 +573,20 @@ const Footer = () => (
           <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl">W</div>
           <span className="font-black text-3xl tracking-tighter text-slate-900">WEB72</span>
         </div>
-        <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
-          <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
-          <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
-          <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
-          <a href="#" className="hover:text-brand-600 transition-colors">Contact</a>
+        <div className="flex flex-col items-center md:items-end gap-4">
+          <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+            <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
+            <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
+            <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-xs font-black text-slate-600">
+            <a href={`tel:${WHATSAPP_NUMBER}`} className="flex items-center gap-2 hover:text-brand-600 transition-colors">
+              Appel : {WHATSAPP_NUMBER}
+            </a>
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-brand-600 transition-colors">
+              WhatsApp : {WHATSAPP_NUMBER}
+            </a>
+          </div>
         </div>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-50">
