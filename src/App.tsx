@@ -94,7 +94,7 @@ const Hero = () => {
             72 HEURES.
           </h1>
           <p className="text-base md:text-xl text-slate-600 mb-6 md:mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
-            Plombiers, électriciens, dentistes, artisans... <br />
+            Coachs, formateurs, artisans, médecins, dentistes... <br />
             <span className="text-slate-900 font-bold">Ne laissez plus vos clients appeler vos concurrents par manque de visibilité.</span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center justify-center lg:justify-start">
