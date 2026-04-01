@@ -314,10 +314,10 @@ const Pricing = () => (
           <div className="absolute top-0 right-0 bg-brand-500 text-white px-6 md:px-10 py-2 md:py-3 rounded-bl-xl md:rounded-bl-[2rem] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em]">
             Offre Limitée
           </div>
-          <div className="mb-10 md:mb-16">
+          <div className="mb-10 md:mb-16 text-center">
             <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-brand-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 md:mb-8">Pack Visibilité Pro</div>
             <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Clé en main</h3>
-            <div className="flex items-baseline gap-3">
+            <div className="flex items-baseline justify-center gap-3">
               <span className="text-6xl md:text-9xl font-black text-white tracking-tighter">999</span>
               <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
             </div>
