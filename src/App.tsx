@@ -1,3 +1,4 @@
+// Test comment
 import { 
   CheckCircle2, 
   MessageCircle, 
@@ -21,6 +22,39 @@ import { useState, useEffect, useRef } from "react";
 const WHATSAPP_NUMBER = "+212662825890";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}`;
 
+const PORTFOLIO_SITES = [
+  {
+    title: "Cabinet Dr Lahlou",
+    category: "Santé / Médical",
+    url: "https://cabinetdrlahlou.vercel.app/",
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Coach Ilham",
+    category: "Coaching / Sport",
+    url: "https://coachilham.vercel.app/",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Les Fleurs du Boutonnet",
+    category: "Commerce / Boutique",
+    url: "https://les-fleurs-du-boutonnet.vercel.app/",
+    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Coach Ilham Nejari",
+    category: "Coaching / Business",
+    url: "https://coachilhamnejari.vercel.app/",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "WEB48 Maroc",
+    category: "Portfolio / Agence",
+    url: "https://web72maroc.vercel.app/",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+  }
+];
+
 // --- Components ---
 
 const Navbar = () => {
@@ -37,10 +71,11 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         <div className="flex items-center gap-2 md:gap-3 group cursor-pointer">
           <div className="w-9 h-9 md:w-12 md:h-12 bg-slate-900 rounded-lg md:rounded-2xl flex items-center justify-center text-white font-black text-lg md:text-2xl shadow-xl group-hover:bg-brand-600 transition-all duration-500 group-hover:rotate-6">W</div>
-          <span className="font-black text-xl md:text-3xl tracking-tighter text-slate-900">WEB72</span>
+          <span className="font-black text-xl md:text-3xl tracking-tighter text-slate-900">WEB48</span>
         </div>
         <div className="hidden lg:flex items-center gap-12 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
           <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
+          <a href="#portfolio" className="hover:text-brand-600 transition-colors">Portfolio</a>
           <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
           <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
         </div>
@@ -86,12 +121,12 @@ const Hero = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
             </span>
-            Livraison garantie en 72h
+            Livraison garantie en 48h
           </div>
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-black text-slate-900 leading-[0.95] md:leading-[0.9] mb-4 md:mb-8 tracking-tighter">
             VOTRE SITE <br />
             <span className="text-gradient">PRO</span> EN <br />
-            72 HEURES.
+            48 HEURES.
           </h1>
           <p className="text-base md:text-xl text-slate-600 mb-6 md:mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
             Coachs, formateurs, artisans, médecins, dentistes... <br />
@@ -177,7 +212,7 @@ const Hero = () => {
               </div>
               <div>
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Rapidité</p>
-                <p className="text-sm font-bold text-slate-800">Livré en 72 Heures</p>
+                <p className="text-sm font-bold text-slate-800">Livré en 48 Heures</p>
               </div>
             </div>
           </motion.div>
@@ -251,6 +286,55 @@ const Problem = () => (
   </section>
 );
 
+const Portfolio = () => (
+  <section id="portfolio" className="py-16 md:py-32 px-4 md:px-6 bg-[#fafafa]">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-12 md:mb-24">
+        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Nos <br />Réalisations.</h2>
+        <p className="text-base md:text-xl text-slate-500 font-medium">Découvrez des exemples de sites livrés en 48h.</p>
+      </div>
+
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+        {PORTFOLIO_SITES.map((site, i) => (
+          <motion.div 
+            key={i}
+            whileHover={{ y: -10 }}
+            className="group bento-card overflow-hidden flex flex-col"
+          >
+            <div className="h-48 md:h-64 overflow-hidden relative">
+              <img 
+                src={site.image} 
+                alt={site.title} 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+              <div className="absolute bottom-4 left-4">
+                <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-full border border-white/10">
+                  {site.category}
+                </span>
+              </div>
+            </div>
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
+              <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-4 uppercase tracking-tighter">{site.title}</h3>
+              <div className="mt-auto">
+                <a 
+                  href={site.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-brand-600 font-black text-xs md:text-sm uppercase tracking-widest hover:gap-4 transition-all"
+                >
+                  Voir le site <ExternalLink size={14} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const Solution = () => (
   <section className="py-16 md:py-32 px-4 md:px-6 bg-slate-900 text-white relative overflow-hidden">
     <div className="absolute top-0 right-0 w-full h-full bg-brand-600/5 blur-[150px]"></div>
@@ -268,10 +352,10 @@ const Solution = () => (
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {[
-          { icon: <Clock size={28} />, title: "72H CHRONO", desc: "Livraison éclair garantie.", color: "bg-brand-500" },
+          { icon: <Clock size={28} />, title: "48H CHRONO", desc: "Livraison éclair garantie.", color: "bg-brand-500" },
           { icon: <Layout size={28} />, title: "DESIGN PREMIUM", desc: "Look moderne et pro.", color: "bg-indigo-500" },
           { icon: <Smartphone size={28} />, title: "MOBILE FIRST", desc: "Optimisé pour WhatsApp.", color: "bg-emerald-500" },
-          { icon: <ShieldCheck size={28} />, title: "SÉCURITÉ TOTALE", desc: "HTTPS et SSL inclus.", color: "bg-slate-700" },
+          { icon: <ShieldCheck size={28} />, title: "ZÉRO FRAIS", desc: "Hébergement gratuit à vie.", color: "bg-slate-700" },
           { icon: <Rocket size={28} />, title: "SEO LOCAL", desc: "Visible sur Google Maps.", color: "bg-orange-500" },
           { icon: <Zap size={28} />, title: "SANS EFFORT", desc: "On gère tout pour vous.", color: "bg-pink-500" }
         ].map((item, i) => (
@@ -287,13 +371,11 @@ const Solution = () => (
       
       <div className="mt-10 md:mt-20 text-center">
         <a 
-          href={WHATSAPP_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#portfolio"
           className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-slate-900 px-6 md:px-10 py-3.5 md:py-5 rounded-xl md:rounded-2xl font-black text-sm md:text-lg hover:bg-brand-500 hover:text-white transition-all group"
         >
           VOIR NOS RÉALISATIONS
-          <ExternalLink size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
     </div>
@@ -316,15 +398,15 @@ const Pricing = () => (
           </div>
           <div className="mb-10 md:mb-16 text-center">
             <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-brand-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 md:mb-8">Pack Visibilité Pro</div>
-            <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Clé en main</h3>
+            <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Low-Cost</h3>
             <div className="flex items-baseline justify-center gap-3">
-              <span className="text-6xl md:text-9xl font-black text-white tracking-tighter">999</span>
+              <span className="text-6xl md:text-9xl font-black text-white tracking-tighter">599</span>
               <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
             </div>
             <p className="text-slate-400 font-black mt-4 md:mt-6 uppercase tracking-[0.2em] text-[10px] md:text-xs">Paiement unique</p>
             <div className="mt-6 p-4 bg-white/5 rounded-2xl border border-white/10">
               <p className="text-brand-400 font-bold text-xs md:text-sm">
-                + 150 DH pour le nom de domaine .com (si disponible)
+                Hébergement gratuit à vie (Vercel/Netlify)
               </p>
             </div>
           </div>
@@ -333,8 +415,8 @@ const Pricing = () => (
               "Site professionnel ultra-rapide",
               "Design moderne & responsive",
               "Intégration WhatsApp directe",
-              "Livraison garantie en 72h",
-              "Hébergement haute performance",
+              "Livraison garantie en 48h",
+              "Zéro frais d'hébergement",
               "Optimisation SEO de base",
               "Support technique inclus",
               "Sécurité SSL (HTTPS)"
@@ -430,7 +512,7 @@ const Process = () => (
           { step: "01", title: "WHATSAPP", desc: "On discute de votre projet en 5 minutes.", icon: <MessageCircle size={20} /> },
           { step: "02", title: "CONTENU", desc: "Vous envoyez vos photos et textes par message.", icon: <Layout size={20} /> },
           { step: "03", title: "CRÉATION", desc: "On code votre site avec amour et café.", icon: <Zap size={20} /> },
-          { step: "04", title: "LIVRAISON", desc: "72h plus tard, vous êtes en ligne !", icon: <Rocket size={20} /> }
+          { step: "04", title: "LIVRAISON", desc: "48h plus tard, vous êtes en ligne !", icon: <Rocket size={20} /> }
         ].map((item, i) => (
           <div key={i} className="group bento-card p-6 md:p-10 hover:bg-slate-900 hover:text-white transition-all duration-700">
             <div className="flex justify-between items-start mb-6 md:mb-10">
@@ -488,11 +570,11 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
-    { q: "Combien de temps prend la création ?", a: "Nous garantissons une livraison en moins de 72h une fois que nous avons reçu toutes vos informations." },
+    { q: "Combien de temps prend la création ?", a: "Nous garantissons une livraison en moins de 48h une fois que nous avons reçu toutes vos informations." },
     { q: "Est-ce que je dois fournir le contenu ?", a: "Si vous avez des photos et textes, c'est parfait. Sinon, nous pouvons vous aider à rédiger et choisir des images professionnelles adaptées à votre métier." },
     { q: "Le site fonctionne-t-il sur téléphone ?", a: "Absolument. Tous nos sites sont 'Mobile-First', ce qui signifie qu'ils sont parfaitement optimisés pour les smartphones." },
     { q: "Comment se passe le paiement ?", a: "Nous demandons un acompte de 50% au lancement et le solde à la livraison du site." },
-    { q: "Y a-t-il des frais mensuels ?", a: "Non. L'hébergement est inclus. Il faudra simplement renouveler votre nom de domaine chaque année (environ 150-200 DH/an selon l'extension)." }
+    { q: "Y a-t-il des frais mensuels ?", a: "Non. Nous utilisons des solutions d'hébergement gratuites (Vercel/Netlify) sur votre propre compte. Vous n'avez rien à payer chaque mois." }
   ];
 
   return (
@@ -557,8 +639,8 @@ const FinalCTA = () => (
         <ArrowRight size={20} className="md:w-8 md:h-8 group-hover:translate-x-3 transition-transform" />
       </a>
       <div className="mt-12 md:mt-24 flex flex-wrap justify-center gap-4 md:gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
-        <div className="flex items-center gap-3 font-black tracking-[0.2em] md:tracking-[0.3em] text-[7px] md:text-[10px]">LIVRAISON 72H</div>
-        <div className="flex items-center gap-3 font-black tracking-[0.2em] md:tracking-[0.3em] text-[7px] md:text-[10px]">SANS ABONNEMENT</div>
+        <div className="flex items-center gap-3 font-black tracking-[0.2em] md:tracking-[0.3em] text-[7px] md:text-[10px]">LIVRAISON 48H</div>
+        <div className="flex items-center gap-3 font-black tracking-[0.2em] md:tracking-[0.3em] text-[7px] md:text-[10px]">ZÉRO ABONNEMENT</div>
         <div className="flex items-center gap-3 font-black tracking-[0.2em] md:tracking-[0.3em] text-[7px] md:text-[10px]">SUPPORT MAROC</div>
       </div>
     </div>
@@ -571,11 +653,12 @@ const Footer = () => (
       <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl">W</div>
-          <span className="font-black text-3xl tracking-tighter text-slate-900">WEB72</span>
+          <span className="font-black text-3xl tracking-tighter text-slate-900">WEB48</span>
         </div>
         <div className="flex flex-col items-center md:items-end gap-4">
           <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
             <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
+            <a href="#portfolio" className="hover:text-brand-600 transition-colors">Portfolio</a>
             <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
             <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
           </div>
@@ -591,7 +674,7 @@ const Footer = () => (
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-50">
         <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">
-          © 2026 WEB72 MAROC. TOUS DROITS RÉSERVÉS.
+          © 2026 WEB48 MAROC. TOUS DROITS RÉSERVÉS.
         </div>
         <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
           <a href="#" className="hover:text-slate-900 transition-colors">Mentions Légales</a>
@@ -641,6 +724,7 @@ export default function App() {
         <Hero />
         <Problem />
         <Solution />
+        <Portfolio />
         <Expertise />
         <Process />
         <Pricing />
