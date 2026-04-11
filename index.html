@@ -2,22 +2,46 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Fix for "Cannot set property fetch of #<Window> which has only a getter"
+      // This error often occurs when a library tries to polyfill fetch in an environment where it's protected.
+      (function() {
+        const originalFetch = window.fetch;
+        if (originalFetch) {
+          try {
+            Object.defineProperty(window, 'fetch', {
+              get: function() { return originalFetch; },
+              set: function(v) { 
+                console.warn('Attempt to overwrite window.fetch suppressed.');
+              },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (e) {
+            console.warn('Could not redefine window.fetch, it might be non-configurable:', e.message);
+          }
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WEB72 - Votre Site Pro en 72 Heures au Maroc</title>
-    <meta name="description" content="Création de sites web professionnels pour coachs, artisans, médecins et indépendants au Maroc. Livraison en 72h, optimisé WhatsApp, pour seulement 999 DH." />
+    <title>WEB48 - Votre Site Pro en 48 Heures au Maroc</title>
+    <meta name="description" content="Création de sites web professionnels pour coachs, artisans, médecins et indépendants au Maroc. Livraison en 48h, optimisé WhatsApp, pour seulement 890 DH." />
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="VOTRE_CODE_ICI" />
     
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://web72.ma/" />
-    <meta property="og:title" content="WEB72 - Votre Site Pro en 72 Heures" />
-    <meta property="og:description" content="Ne laissez plus vos clients appeler vos concurrents. Un site pro, rapide et efficace pour 999 DH." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="og:url" content="https://web48.ma/" />
+    <meta property="og:title" content="WEB48 - Votre Site Pro en 48 Heures" />
+    <meta property="og:description" content="Ne laissez plus vos clients appeler vos concurrents. Un site pro, rapide et efficace pour 890 DH." />
+    <meta property="og:image" content="https://i.postimg.cc/SNYtLZXy/web-design-concepts-with-blurred-background.jpg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="WEB72 - Votre Site Pro en 72 Heures" />
-    <meta property="twitter:description" content="Création de sites web professionnels au Maroc. Livraison en 72h pour 999 DH." />
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" />
+    <meta property="twitter:title" content="WEB48 - Votre Site Pro en 48 Heures" />
+    <meta property="twitter:description" content="Création de sites web professionnels au Maroc. Livraison en 48h pour 890 DH." />
+    <meta property="twitter:image" content="https://i.postimg.cc/SNYtLZXy/web-design-concepts-with-blurred-background.jpg" />
   </head>
   <body>
     <div id="root"></div>

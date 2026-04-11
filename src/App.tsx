@@ -1,4 +1,3 @@
-// Test comment
 import { 
   CheckCircle2, 
   MessageCircle, 
@@ -14,7 +13,9 @@ import {
   Star,
   ExternalLink,
   ShieldCheck,
-  Rocket
+  Rocket,
+  Menu,
+  X
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { useState, useEffect, useRef } from "react";
@@ -22,43 +23,60 @@ import { useState, useEffect, useRef } from "react";
 const WHATSAPP_NUMBER = "+212662825890";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}`;
 
+const IMAGES = {
+  hero: "https://i.postimg.cc/prM4p4vG/side-view-woman-using-computer-laptop.jpg",
+  problem: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+  expertise: {
+    dev: "https://i.postimg.cc/c45tWmTv/close-up-image-programer-working-his-desk-office.jpg",
+    seo: "https://i.postimg.cc/VNJR1vXZ/seo-search-engine-optimization-internet-digital-concept.jpg",
+    it: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31"
+  },
+  avatars: [
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
+  ],
+  portfolio: {
+    medical: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
+    boutique: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80",
+    business: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    sushi: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80"
+  }
+};
+
 const PORTFOLIO_SITES = [
   {
     title: "Cabinet Dr Lahlou",
     category: "Santé / Médical",
     url: "https://cabinetdrlahlou.vercel.app/",
-    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    title: "Coach Ilham",
-    category: "Coaching / Sport",
-    url: "https://coachilham.vercel.app/",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80"
+    image: IMAGES.portfolio.medical
   },
   {
     title: "Les Fleurs du Boutonnet",
     category: "Commerce / Boutique",
     url: "https://les-fleurs-du-boutonnet.vercel.app/",
-    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80"
+    image: IMAGES.portfolio.boutique
   },
   {
     title: "Coach Ilham Nejari",
     category: "Coaching / Business",
     url: "https://coachilhamnejari.vercel.app/",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80"
+    image: IMAGES.portfolio.business
   },
   {
-    title: "WEB48 Maroc",
-    category: "Portfolio / Agence",
-    url: "https://web72maroc.vercel.app/",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+    title: "Sushi House Five",
+    category: "Restauration / Sushi",
+    url: "https://sushi-house-five.vercel.app/",
+    image: IMAGES.portfolio.sushi
   }
 ];
 
 // --- Components ---
 
-const Navbar = () => {
+const Navbar = ({ onNavigateServices }: { onNavigateServices?: () => void }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -66,29 +84,87 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { href: "#offres", label: "Offres" },
+    { onClick: onNavigateServices, label: "Services +" },
+    { href: "#portfolio", label: "Portfolio" },
+    { href: "#process", label: "Processus" },
+    { href: "#faq", label: "FAQ" },
+  ];
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-2 md:py-3 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'py-4 md:py-6 bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || mobileMenuOpen ? 'py-2 md:py-3 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'py-4 md:py-6 bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
-        <div className="flex items-center gap-2 md:gap-3 group cursor-pointer">
+        <div onClick={() => window.location.href = '/'} className="flex items-center gap-2 md:gap-3 group cursor-pointer">
           <div className="w-9 h-9 md:w-12 md:h-12 bg-slate-900 rounded-lg md:rounded-2xl flex items-center justify-center text-white font-black text-lg md:text-2xl shadow-xl group-hover:bg-brand-600 transition-all duration-500 group-hover:rotate-6">W</div>
           <span className="font-black text-xl md:text-3xl tracking-tighter text-slate-900">WEB48</span>
         </div>
+        
+        {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-12 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
-          <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
-          <a href="#portfolio" className="hover:text-brand-600 transition-colors">Portfolio</a>
-          <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
-          <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
+          {navLinks.map((link, i) => (
+            link.href ? (
+              <a key={i} href={link.href} className="hover:text-brand-600 transition-colors">{link.label}</a>
+            ) : (
+              <button key={i} onClick={link.onClick} className="hover:text-brand-600 transition-colors uppercase tracking-[0.3em] font-black">{link.label}</button>
+            )
+          ))}
         </div>
-        <a 
-          href={WHATSAPP_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-slate-900 text-white px-4 md:px-8 py-2.5 md:py-4 rounded-lg md:rounded-2xl text-[9px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2 md:gap-3 hover:bg-brand-600 transition-all shadow-xl"
-        >
-          <MessageCircle size={14} className="md:w-[18px] md:h-[18px]" />
-          <span>WhatsApp</span>
-        </a>
+
+        <div className="flex items-center gap-4">
+          <a 
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:flex bg-slate-900 text-white px-4 md:px-8 py-2.5 md:py-4 rounded-lg md:rounded-2xl text-[9px] md:text-xs font-black uppercase tracking-widest items-center gap-2 md:gap-3 hover:bg-brand-600 transition-all shadow-xl"
+          >
+            <MessageCircle size={14} className="md:w-[18px] md:h-[18px]" />
+            <span>WhatsApp</span>
+          </a>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center shadow-lg"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-white border-t border-slate-100 overflow-hidden"
+          >
+            <div className="flex flex-col p-6 gap-6">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.href} 
+                  href={link.href} 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-black text-slate-900 uppercase tracking-widest hover:text-brand-600 transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a 
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-brand-600 text-white p-4 rounded-2xl text-center text-xs font-black uppercase tracking-widest flex items-center justify-center gap-3"
+              >
+                <MessageCircle size={18} />
+                <span>Lancer mon projet</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
@@ -129,8 +205,8 @@ const Hero = () => {
             48 HEURES.
           </h1>
           <p className="text-base md:text-xl text-slate-600 mb-6 md:mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
-            Coachs, formateurs, artisans, médecins, dentistes... <br />
-            <span className="text-slate-900 font-bold">Ne laissez plus vos clients appeler vos concurrents par manque de visibilité.</span>
+            Coachs, artisans, médecins, commerçants... <br />
+            <span className="text-slate-900 font-bold">Arrêtez de perdre des clients au profit de vos concurrents qui sont déjà sur Google.</span>
           </p>
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center justify-center lg:justify-start">
             <a 
@@ -145,12 +221,7 @@ const Hero = () => {
             </a>
             <div className="flex items-center gap-3 md:gap-4 px-4 mt-2 sm:mt-0">
               <div className="flex -space-x-2 md:-space-x-3">
-                {[
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
-                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-                  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
-                ].map((url, i) => (
+                {IMAGES.avatars.map((url, i) => (
                   <div key={i} className="w-8 h-8 md:w-12 md:h-12 rounded-full border-2 md:border-4 border-white bg-slate-200 overflow-hidden shadow-md">
                     <img src={`${url}?auto=format&fit=crop&w=100&h=100&q=80`} alt="Client" referrerPolicy="no-referrer" />
                   </div>
@@ -175,7 +246,7 @@ const Hero = () => {
             <div className="rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] border-[1px] border-white/20 relative group">
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <img 
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" 
+                src={IMAGES.hero} 
                 alt="Exemple de site premium" 
                 className="w-full h-auto transform group-hover:scale-105 transition-transform duration-1000"
                 referrerPolicy="no-referrer"
@@ -229,7 +300,7 @@ const Problem = () => (
         <div className="relative order-2 lg:order-1 mt-12 lg:mt-0">
           <div className="relative z-10 rounded-2xl md:rounded-[3rem] overflow-hidden shadow-xl border border-slate-100">
             <img 
-              src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" 
+              src={IMAGES.problem} 
               alt="Analyse SEO décevante" 
               className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-700"
               referrerPolicy="no-referrer"
@@ -398,28 +469,32 @@ const Pricing = () => (
           </div>
           <div className="mb-10 md:mb-16 text-center">
             <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-brand-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 md:mb-8">Pack Visibilité Pro</div>
-            <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Low-Cost</h3>
-            <div className="flex items-baseline justify-center gap-3">
-              <span className="text-6xl md:text-9xl font-black text-white tracking-tighter">599</span>
-              <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
+            <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Professionnel</h3>
+            <div className="flex flex-col items-center justify-center gap-2">
+              <span className="text-2xl md:text-3xl font-bold text-slate-500 line-through decoration-red-500/50">1500 DH</span>
+              <div className="flex items-baseline gap-3">
+                <span className="text-7xl md:text-9xl font-black text-white tracking-tighter">890</span>
+                <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
+              </div>
             </div>
-            <p className="text-slate-400 font-black mt-4 md:mt-6 uppercase tracking-[0.2em] text-[10px] md:text-xs">Paiement unique</p>
-            <div className="mt-6 p-4 bg-white/5 rounded-2xl border border-white/10">
-              <p className="text-brand-400 font-bold text-xs md:text-sm">
-                Hébergement gratuit à vie (Vercel/Netlify)
+            <p className="text-brand-400 font-black mt-4 md:mt-6 uppercase tracking-[0.2em] text-[10px] md:text-xs">Offre Tout-Inclus - Sans frais cachés</p>
+            <div className="mt-6 p-4 bg-brand-500/10 rounded-2xl border border-brand-500/20">
+              <p className="text-brand-400 font-black text-[10px] md:text-xs uppercase tracking-widest">
+                Paiement après satisfaction
               </p>
             </div>
           </div>
           <ul className="grid sm:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
             {[
-              "Site professionnel ultra-rapide",
+              "Site ultra-rapide (React/Vite)",
               "Design moderne & responsive",
-              "Intégration WhatsApp directe",
+              "Bouton WhatsApp flottant",
               "Livraison garantie en 48h",
-              "Zéro frais d'hébergement",
-              "Optimisation SEO de base",
-              "Support technique inclus",
-              "Sécurité SSL (HTTPS)"
+              "Hébergement gratuit à vie",
+              "Domaine .com, .online, .shop OFFERT*",
+              "Conformité CNDP Incluse",
+              "Sécurité SSL & HTTPS",
+              "Indexation Google Express"
             ].map((item, i) => (
               <li key={i} className="flex items-center gap-3 md:gap-4 text-slate-300 font-bold text-xs md:text-base">
                 <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
@@ -429,6 +504,11 @@ const Pricing = () => (
               </li>
             ))}
           </ul>
+          <p className="text-[9px] md:text-[10px] text-slate-500 mb-8 italic leading-relaxed">
+            * Nom de domaine offert pour la première année. <br />
+            ** Hébergement gratuit inclus via Vercel/Netlify. <br />
+            *** Indexation Google Express : votre site visible sur Google en moins de 24h.
+          </p>
           <a 
             href={WHATSAPP_LINK}
             target="_blank"
@@ -441,6 +521,171 @@ const Pricing = () => (
       </div>
     </div>
   </section>
+);
+
+const ExpertServicesMini = ({ onExplore }: { onExplore: () => void }) => (
+  <section className="py-12 md:py-20 px-4 md:px-6 bg-slate-50">
+    <div className="max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-12 bg-white rounded-[2rem] md:rounded-[3rem] border border-slate-100 shadow-sm">
+        <div className="text-center md:text-left">
+          <div className="font-black text-xl md:text-2xl tracking-tighter text-slate-900 mb-1">WEB48</div>
+          <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Plus que de simples sites.</h2>
+          <p className="text-sm md:text-lg text-slate-500 font-medium italic">SEO, Conformité CNDP, Formation E-commerce...</p>
+        </div>
+        <div className="flex gap-4 md:gap-8">
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center shadow-sm"><Rocket size={24} /></div>
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center shadow-sm"><ShieldCheck size={24} /></div>
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center shadow-sm"><Zap size={24} /></div>
+        </div>
+        <button 
+          onClick={onExplore}
+          className="bg-slate-900 text-white px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-brand-600 transition-all shadow-xl flex items-center gap-3"
+        >
+          Découvrir nos services experts
+          <ArrowRight size={16} />
+        </button>
+      </div>
+    </div>
+  </section>
+);
+
+const ServicesPage = ({ onBack }: { onBack: () => void }) => (
+  <div className="min-h-screen bg-white font-sans selection:bg-brand-100 selection:text-brand-900">
+    <nav className="py-6 bg-white border-b border-slate-100 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div onClick={onBack} className="flex items-center gap-3 cursor-pointer group">
+          <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black group-hover:bg-brand-600 transition-colors">W</div>
+          <span className="font-black text-2xl tracking-tighter">WEB48</span>
+        </div>
+        <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:text-brand-600 transition-colors">
+          <ArrowRight size={14} className="rotate-180" />
+          Retour à l'accueil
+        </button>
+      </div>
+    </nav>
+
+    <main className="py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-24">
+          <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-6 tracking-tighter leading-none uppercase">Services <br /><span className="text-brand-600">Experts.</span></h1>
+          <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto italic">Des solutions stratégiques pour dominer votre marché et sécuriser votre business au Maroc.</p>
+        </div>
+
+        <div className="space-y-32">
+          {/* SEO */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="w-20 h-20 bg-orange-500 text-white rounded-[2rem] flex items-center justify-center mb-8 shadow-2xl shadow-orange-200">
+                <Rocket size={40} />
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 uppercase tracking-tighter">Audit SEO <br />Express.</h2>
+              <div className="text-3xl font-black text-orange-600 mb-8 tracking-tight">500 DH <span className="text-sm text-slate-400 uppercase tracking-widest">Paiement Unique</span></div>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed mb-8">
+                Pourquoi vos concurrents reçoivent-ils des appels et pas vous ? Notre audit SEO express analyse votre présence digitale avec les outils les plus puissants du marché.
+              </p>
+              <ul className="space-y-4 mb-10">
+                {["Rapport PDF complet et détaillé", "Identification des erreurs techniques bloquantes", "Analyse des mots-clés de vos concurrents", "Plan d'action priorisé"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-4 text-sm font-black text-slate-800 uppercase tracking-tight">
+                    <CheckCircle2 size={18} className="text-orange-500 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={WHATSAPP_LINK} className="inline-flex items-center gap-4 bg-orange-500 text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-orange-600 transition-all shadow-xl">
+                Commander mon audit SEO
+                <ArrowRight size={18} />
+              </a>
+            </div>
+            <div className="bg-slate-50 rounded-[3rem] p-12 border border-slate-100 flex items-center justify-center">
+              <img src={IMAGES.expertise.seo} alt="SEO" className="rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
+            </div>
+          </div>
+
+          {/* CNDP */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1 bg-slate-50 rounded-[3rem] p-12 border border-slate-100 flex items-center justify-center">
+              <div className="p-10 bg-white rounded-3xl shadow-xl border border-red-100 max-w-sm">
+                <div className="flex items-center gap-4 text-red-600 mb-6">
+                  <AlertCircle size={32} />
+                  <span className="font-black text-xl uppercase tracking-tighter">Risque Juridique</span>
+                </div>
+                <p className="text-slate-600 font-bold text-sm leading-relaxed mb-6 italic">
+                  "Le non-respect de la Loi 09-08 peut entraîner des amendes allant jusqu'à **300.000 DH** et des peines d'emprisonnement."
+                </p>
+                <div className="h-2 w-full bg-red-100 rounded-full overflow-hidden">
+                  <div className="h-full w-full bg-red-600 animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <div className="w-20 h-20 bg-emerald-500 text-white rounded-[2rem] flex items-center justify-center mb-8 shadow-2xl shadow-emerald-200">
+                <ShieldCheck size={40} />
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 uppercase tracking-tighter">Audit CNDP <br />(Loi 09-08).</h2>
+              <div className="text-3xl font-black text-emerald-600 mb-8 tracking-tight">300 DH <span className="text-sm text-slate-400 uppercase tracking-widest">Paiement Unique</span></div>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed mb-8">
+                Au Maroc, la protection des données personnelles n'est plus une option. Nous auditons votre site pour garantir sa conformité avec la réglementation **CNDP**. Ne laissez pas une erreur juridique détruire votre business.
+              </p>
+              <ul className="space-y-4 mb-10">
+                {["Vérification des formulaires de collecte", "Audit de la politique de confidentialité", "Recommandations de mise en conformité", "Protection contre les amendes CNDP"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-4 text-sm font-black text-slate-800 uppercase tracking-tight">
+                    <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={WHATSAPP_LINK} className="inline-flex items-center gap-4 bg-emerald-500 text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-emerald-600 transition-all shadow-xl">
+                Sécuriser mon business
+                <ArrowRight size={18} />
+              </a>
+            </div>
+          </div>
+
+          {/* E-commerce */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="w-20 h-20 bg-brand-500 text-white rounded-[2rem] flex items-center justify-center mb-8 shadow-2xl shadow-brand-200">
+                <Zap size={40} />
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 uppercase tracking-tighter">Formation <br />E-commerce.</h2>
+              <div className="text-3xl font-black text-brand-600 mb-8 tracking-tight">250 DH <span className="text-sm text-slate-400 uppercase tracking-widest">Session Intensive</span></div>
+              <p className="text-lg text-slate-600 font-medium leading-relaxed mb-8">
+                Passez de zéro à votre première vente en une seule journée. Une formation concrète, sans blabla, pour les débutants qui veulent des résultats immédiats au Maroc.
+              </p>
+              <ul className="space-y-4 mb-10">
+                {["Formation intensive de 1 journée", "Lancement réel de votre 1ère campagne pub", "Stratégies de vente (Facebook/Instagram)", "Formation certifiante"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-4 text-sm font-black text-slate-800 uppercase tracking-tight">
+                    <CheckCircle2 size={18} className="text-brand-500 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={WHATSAPP_LINK} className="inline-flex items-center gap-4 bg-brand-600 text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-brand-700 transition-all shadow-xl">
+                Réserver ma place
+                <ArrowRight size={18} />
+              </a>
+            </div>
+            <div className="bg-slate-50 rounded-[3rem] p-12 border border-slate-100 flex items-center justify-center">
+              <div className="relative">
+                <img src={IMAGES.expertise.dev} alt="Formation" className="rounded-2xl shadow-2xl" referrerPolicy="no-referrer" />
+                <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 animate-float">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-brand-500 rounded-full flex items-center justify-center text-white"><Star size={20} fill="currentColor" /></div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Certification</p>
+                      <p className="text-xs font-bold text-slate-800">Formation Validée</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <Footer onNavigateServices={() => {}} />
+  </div>
 );
 
 const Expertise = () => (
@@ -456,19 +701,19 @@ const Expertise = () => (
           { 
             title: "Développement Web", 
             desc: "Sites ultra-rapides codés avec les dernières technologies (React, Vite, Tailwind).", 
-            url: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+            url: IMAGES.expertise.dev,
             tags: ["React", "Performance", "Clean Code"]
           },
           { 
             title: "SEO & Visibilité", 
             desc: "Optimisation pour les moteurs de recherche pour apparaître en haut des résultats Google.", 
-            url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+            url: IMAGES.expertise.seo,
             tags: ["Google Maps", "Keywords", "Ranking"]
           },
           { 
             title: "Maintenance IT", 
             desc: "Support technique et hébergement sécurisé pour une tranquillité d'esprit totale.", 
-            url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31",
+            url: IMAGES.expertise.it,
             tags: ["Security", "Cloud", "Backup"]
           }
         ].map((item, i) => (
@@ -530,51 +775,16 @@ const Process = () => (
   </section>
 );
 
-const Testimonials = () => (
-  <section className="py-16 md:py-32 px-4 md:px-6 bg-brand-600 text-white relative overflow-hidden">
-    <div className="absolute inset-0 opacity-10 bg-grid pointer-events-none"></div>
-    <div className="max-w-7xl mx-auto relative z-10">
-      <div className="text-center mb-12 md:mb-24">
-        <h2 className="text-4xl md:text-7xl font-black mb-4 md:mb-6 tracking-tighter uppercase leading-none">Ils sont passés <br />au digital.</h2>
-        <p className="text-base md:text-xl text-brand-100 font-medium">Rejoignez les +150 professionnels qui nous font confiance.</p>
-      </div>
-      <div className="grid md:grid-cols-3 gap-6 md:gap-10">
-        {[
-          { name: "Dr. Amine", role: "Dentiste à Casablanca", url: "https://images.unsplash.com/photo-1556157382-97dee2dcb748", text: "Service incroyable. Mon site a été livré en 2 jours et je reçois déjà des rendez-vous via WhatsApp." },
-          { name: "Karim", role: "Plombier à Marrakech", url: "https://images.unsplash.com/photo-1560250097-0b93528c311a", text: "Franchement top. Simple, rapide et pas cher. Mes clients me trouvent plus facilement maintenant." },
-          { name: "Sanaa", role: "Fleuriste à Rabat", url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2", text: "Le design est magnifique. Je n'y connaissais rien et ils se sont occupés de tout. Je recommande !" }
-        ].map((item, i) => (
-          <div key={i} className="bg-white p-6 md:p-12 rounded-2xl md:rounded-[3rem] shadow-xl text-slate-900 relative group hover:-translate-y-2 transition-transform duration-500">
-            <Quote className="text-brand-600/10 absolute top-4 right-6 md:top-8 md:right-10" size={40} md:size={80} />
-            <div className="flex text-amber-400 mb-4 md:mb-6 gap-0.5 md:gap-1">
-              <Star size={14} md:size={16} fill="currentColor" /><Star size={14} md:size={16} fill="currentColor" /><Star size={14} md:size={16} fill="currentColor" /><Star size={14} md:size={16} fill="currentColor" /><Star size={14} md:size={16} fill="currentColor" />
-            </div>
-            <p className="text-sm md:text-lg mb-6 md:mb-10 font-bold leading-relaxed relative z-10 italic text-slate-700">"{item.text}"</p>
-            <div className="flex items-center gap-4 md:gap-5">
-              <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-slate-100 overflow-hidden shadow-inner border-2 border-slate-50">
-                <img src={`${item.url}?auto=format&fit=crop&w=150&h=150&q=80`} alt={item.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-              </div>
-              <div>
-                <div className="font-black text-base md:text-lg uppercase tracking-tight leading-none mb-1">{item.name}</div>
-                <div className="text-[8px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{item.role}</div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
+    { q: "Pourquoi le prix est-il si compétitif ?", a: "Nous utilisons des technologies modernes qui nous permettent de coder très vite. De plus, nous supprimons les frais d'hébergement mensuels inutiles pour vous offrir le meilleur rapport qualité/prix du Maroc." },
     { q: "Combien de temps prend la création ?", a: "Nous garantissons une livraison en moins de 48h une fois que nous avons reçu toutes vos informations." },
     { q: "Est-ce que je dois fournir le contenu ?", a: "Si vous avez des photos et textes, c'est parfait. Sinon, nous pouvons vous aider à rédiger et choisir des images professionnelles adaptées à votre métier." },
     { q: "Le site fonctionne-t-il sur téléphone ?", a: "Absolument. Tous nos sites sont 'Mobile-First', ce qui signifie qu'ils sont parfaitement optimisés pour les smartphones." },
-    { q: "Comment se passe le paiement ?", a: "Nous demandons un acompte de 50% au lancement et le solde à la livraison du site." },
-    { q: "Y a-t-il des frais mensuels ?", a: "Non. Nous utilisons des solutions d'hébergement gratuites (Vercel/Netlify) sur votre propre compte. Vous n'avez rien à payer chaque mois." }
+    { q: "Comment se passe le paiement ?", a: "C'est simple : vous ne payez qu'une fois que vous êtes satisfait du résultat. Nous fonctionnons à la confiance." },
+    { q: "Y a-t-il des frais mensuels ?", a: "Non. Contrairement aux agences classiques, nous utilisons des solutions d'hébergement gratuites à vie. Vous payez une seule fois, et c'est tout." }
   ];
 
   return (
@@ -647,7 +857,7 @@ const FinalCTA = () => (
   </section>
 );
 
-const Footer = () => (
+const Footer = ({ onNavigateServices }: { onNavigateServices?: () => void }) => (
   <footer className="py-20 px-6 bg-white border-t border-slate-100">
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
@@ -658,6 +868,7 @@ const Footer = () => (
         <div className="flex flex-col items-center md:items-end gap-4">
           <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
             <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
+            <button onClick={onNavigateServices} className="hover:text-brand-600 transition-colors uppercase font-black">Services +</button>
             <a href="#portfolio" className="hover:text-brand-600 transition-colors">Portfolio</a>
             <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
             <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
@@ -673,8 +884,9 @@ const Footer = () => (
         </div>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-50">
-        <div className="text-slate-400 text-xs font-bold uppercase tracking-widest">
-          © 2026 WEB48 MAROC. TOUS DROITS RÉSERVÉS.
+        <div className="text-slate-400 text-[10px] font-bold uppercase tracking-widest text-center md:text-left">
+          © 2026 WEB48 MAROC. TOUS DROITS RÉSERVÉS. <br className="md:hidden" />
+          <span className="text-slate-300">Conforme CNDP (Loi 09-08) - Protection des données personnelles.</span>
         </div>
         <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
           <a href="#" className="hover:text-slate-900 transition-colors">Mentions Légales</a>
@@ -692,7 +904,7 @@ const StickyWhatsApp = () => (
     rel="noopener noreferrer"
     className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-4 md:p-5 rounded-2xl md:rounded-[2rem] shadow-[0_15px_30px_rgba(37,211,102,0.3)] md:shadow-[0_20px_40px_rgba(37,211,102,0.4)] hover:scale-110 active:scale-95 transition-all flex items-center justify-center group"
   >
-    <MessageCircle size={28} md:size={36} fill="currentColor" />
+    <MessageCircle size={28} className="md:w-9 md:h-9" fill="currentColor" />
     <span className="absolute right-full mr-6 bg-slate-900 text-white px-6 py-3 rounded-2xl text-sm font-black shadow-2xl opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 whitespace-nowrap pointer-events-none uppercase tracking-widest hidden md:block">
       Besoin d'un site ?
     </span>
@@ -702,37 +914,49 @@ const StickyWhatsApp = () => (
 // --- Main App ---
 
 export default function App() {
+  const [view, setView] = useState<'home' | 'services'>('home');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
+
   useEffect(() => {
     // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href')!);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
+    if (view === 'home') {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href')!);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        });
       });
-    });
-  }, []);
+    }
+  }, [view]);
+
+  if (view === 'services') {
+    return <ServicesPage onBack={() => setView('home')} />;
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-brand-600 selection:text-white overflow-x-hidden">
-      <Navbar />
+      <Navbar onNavigateServices={() => setView('services')} />
       <main>
         <Hero />
         <Problem />
         <Solution />
         <Portfolio />
+        <ExpertServicesMini onExplore={() => setView('services')} />
         <Expertise />
         <Process />
         <Pricing />
-        <Testimonials />
         <FAQ />
         <FinalCTA />
       </main>
-      <Footer />
+      <Footer onNavigateServices={() => setView('services')} />
       <StickyWhatsApp />
     </div>
   );
