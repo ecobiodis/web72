@@ -74,7 +74,7 @@ const PORTFOLIO_SITES = [
 
 // --- Components ---
 
-const Navbar = ({ onNavigateServices }: { onNavigateServices?: () => void }) => {
+const Navbar = ({ onNavigate }: { onNavigate: (target: string) => void }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -85,17 +85,17 @@ const Navbar = ({ onNavigateServices }: { onNavigateServices?: () => void }) => 
   }, []);
 
   const navLinks = [
-    { href: "#offres", label: "Offres" },
-    { onClick: onNavigateServices, label: "Services +" },
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#process", label: "Processus" },
-    { href: "#faq", label: "FAQ" },
+    { target: "#offres", label: "Offres" },
+    { target: "services", label: "Services +" },
+    { target: "#portfolio", label: "Portfolio" },
+    { target: "#process", label: "Processus" },
+    { target: "#faq", label: "FAQ" },
   ];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled || mobileMenuOpen ? 'py-2 md:py-3 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'py-4 md:py-6 bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
-        <div onClick={() => window.location.href = '/'} className="flex items-center gap-2 md:gap-3 group cursor-pointer">
+        <div onClick={() => onNavigate("#home")} className="flex items-center gap-2 md:gap-3 group cursor-pointer">
           <div className="w-9 h-9 md:w-12 md:h-12 bg-slate-900 rounded-lg md:rounded-2xl flex items-center justify-center text-white font-black text-lg md:text-2xl shadow-xl group-hover:bg-brand-600 transition-all duration-500 group-hover:rotate-6">W</div>
           <span className="font-black text-xl md:text-3xl tracking-tighter text-slate-900">WEB48</span>
         </div>
@@ -103,11 +103,13 @@ const Navbar = ({ onNavigateServices }: { onNavigateServices?: () => void }) => 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-12 text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
           {navLinks.map((link, i) => (
-            link.href ? (
-              <a key={i} href={link.href} className="hover:text-brand-600 transition-colors">{link.label}</a>
-            ) : (
-              <button key={i} onClick={link.onClick} className="hover:text-brand-600 transition-colors uppercase tracking-[0.3em] font-black">{link.label}</button>
-            )
+            <button 
+              key={i} 
+              onClick={() => onNavigate(link.target)} 
+              className="hover:text-brand-600 transition-colors uppercase tracking-[0.3em] font-black"
+            >
+              {link.label}
+            </button>
           ))}
         </div>
 
@@ -142,15 +144,17 @@ const Navbar = ({ onNavigateServices }: { onNavigateServices?: () => void }) => 
             className="lg:hidden bg-white border-t border-slate-100 overflow-hidden"
           >
             <div className="flex flex-col p-6 gap-6">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.href} 
-                  href={link.href} 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm font-black text-slate-900 uppercase tracking-widest hover:text-brand-600 transition-colors"
+              {navLinks.map((link, i) => (
+                <button 
+                  key={i} 
+                  onClick={() => {
+                    onNavigate(link.target);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-left text-sm font-black text-slate-900 uppercase tracking-widest hover:text-brand-600 transition-colors"
                 >
                   {link.label}
-                </a>
+                </button>
               ))}
               <a 
                 href={WHATSAPP_LINK}
@@ -406,7 +410,7 @@ const Portfolio = () => (
   </section>
 );
 
-const Solution = () => (
+const Solution = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
   <section className="py-16 md:py-32 px-4 md:px-6 bg-slate-900 text-white relative overflow-hidden">
     <div className="absolute top-0 right-0 w-full h-full bg-brand-600/5 blur-[150px]"></div>
     <div className="max-w-7xl mx-auto relative z-10">
@@ -441,13 +445,13 @@ const Solution = () => (
       </div>
       
       <div className="mt-10 md:mt-20 text-center">
-        <a 
-          href="#portfolio"
+        <button 
+          onClick={() => onNavigate("#portfolio")}
           className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-slate-900 px-6 md:px-10 py-3.5 md:py-5 rounded-xl md:rounded-2xl font-black text-sm md:text-lg hover:bg-brand-500 hover:text-white transition-all group"
         >
           VOIR NOS RÉALISATIONS
           <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-        </a>
+        </button>
       </div>
     </div>
   </section>
@@ -549,15 +553,15 @@ const ExpertServicesMini = ({ onExplore }: { onExplore: () => void }) => (
   </section>
 );
 
-const ServicesPage = ({ onBack }: { onBack: () => void }) => (
+const ServicesPage = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
   <div className="min-h-screen bg-white font-sans selection:bg-brand-100 selection:text-brand-900">
     <nav className="py-6 bg-white border-b border-slate-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <div onClick={onBack} className="flex items-center gap-3 cursor-pointer group">
+        <div onClick={() => onNavigate("#home")} className="flex items-center gap-3 cursor-pointer group">
           <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black group-hover:bg-brand-600 transition-colors">W</div>
           <span className="font-black text-2xl tracking-tighter">WEB48</span>
         </div>
-        <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:text-brand-600 transition-colors">
+        <button onClick={() => onNavigate("#home")} className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:text-brand-600 transition-colors">
           <ArrowRight size={14} className="rotate-180" />
           Retour à l'accueil
         </button>
@@ -684,7 +688,7 @@ const ServicesPage = ({ onBack }: { onBack: () => void }) => (
       </div>
     </main>
 
-    <Footer onNavigateServices={() => {}} />
+    <Footer onNavigate={onNavigate} />
   </div>
 );
 
@@ -857,21 +861,21 @@ const FinalCTA = () => (
   </section>
 );
 
-const Footer = ({ onNavigateServices }: { onNavigateServices?: () => void }) => (
+const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
   <footer className="py-20 px-6 bg-white border-t border-slate-100">
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
-        <div className="flex items-center gap-3">
+        <div onClick={() => onNavigate("#home")} className="flex items-center gap-3 cursor-pointer">
           <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl">W</div>
           <span className="font-black text-3xl tracking-tighter text-slate-900">WEB48</span>
         </div>
         <div className="flex flex-col items-center md:items-end gap-4">
           <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
-            <a href="#offres" className="hover:text-brand-600 transition-colors">Offres</a>
-            <button onClick={onNavigateServices} className="hover:text-brand-600 transition-colors uppercase font-black">Services +</button>
-            <a href="#portfolio" className="hover:text-brand-600 transition-colors">Portfolio</a>
-            <a href="#process" className="hover:text-brand-600 transition-colors">Processus</a>
-            <a href="#faq" className="hover:text-brand-600 transition-colors">FAQ</a>
+            <button onClick={() => onNavigate("#offres")} className="hover:text-brand-600 transition-colors uppercase font-black">Offres</button>
+            <button onClick={() => onNavigate("services")} className="hover:text-brand-600 transition-colors uppercase font-black">Services +</button>
+            <button onClick={() => onNavigate("#portfolio")} className="hover:text-brand-600 transition-colors uppercase font-black">Portfolio</button>
+            <button onClick={() => onNavigate("#process")} className="hover:text-brand-600 transition-colors uppercase font-black">Processus</button>
+            <button onClick={() => onNavigate("#faq")} className="hover:text-brand-600 transition-colors uppercase font-black">FAQ</button>
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-xs font-black text-slate-600">
             <a href={`tel:${WHATSAPP_NUMBER}`} className="flex items-center gap-2 hover:text-brand-600 transition-colors">
@@ -916,38 +920,43 @@ const StickyWhatsApp = () => (
 export default function App() {
   const [view, setView] = useState<'home' | 'services'>('home');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [view]);
-
-  useEffect(() => {
-    // Smooth scroll for anchor links
-    if (view === 'home') {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href')!);
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth'
-            });
+  const handleNavigate = (target: string) => {
+    if (target === 'services') {
+      setView('services');
+      window.scrollTo(0, 0);
+    } else if (target === '#home') {
+      setView('home');
+      window.scrollTo(0, 0);
+    } else if (target.startsWith('#')) {
+      if (view !== 'home') {
+        setView('home');
+        // Wait for view to update before scrolling
+        setTimeout(() => {
+          const element = document.querySelector(target);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
           }
-        });
-      });
+        }, 100);
+      } else {
+        const element = document.querySelector(target);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     }
-  }, [view]);
+  };
 
   if (view === 'services') {
-    return <ServicesPage onBack={() => setView('home')} />;
+    return <ServicesPage onNavigate={handleNavigate} />;
   }
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-brand-600 selection:text-white overflow-x-hidden">
-      <Navbar onNavigateServices={() => setView('services')} />
+      <Navbar onNavigate={handleNavigate} />
       <main>
         <Hero />
         <Problem />
-        <Solution />
+        <Solution onNavigate={handleNavigate} />
         <Portfolio />
         <ExpertServicesMini onExplore={() => setView('services')} />
         <Expertise />
@@ -956,7 +965,7 @@ export default function App() {
         <FAQ />
         <FinalCTA />
       </main>
-      <Footer onNavigateServices={() => setView('services')} />
+      <Footer onNavigate={handleNavigate} />
       <StickyWhatsApp />
     </div>
   );
