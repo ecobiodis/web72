@@ -41,7 +41,8 @@ const IMAGES = {
     medical: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80",
     boutique: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80",
     business: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
-    sushi: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80"
+    sushi: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
+    optic: "https://images.unsplash.com/photo-1511317558624-0404098401c8?auto=format&fit=crop&w=800&q=80"
   }
 };
 
@@ -69,6 +70,12 @@ const PORTFOLIO_SITES = [
     category: "Restauration / Sushi",
     url: "https://sushi-house-five.vercel.app/",
     image: IMAGES.portfolio.sushi
+  },
+  {
+    title: "Par Optic Berrechid",
+    category: "Santé / Opticien",
+    url: "https://par-optic-berrechid.vercel.app/",
+    image: IMAGES.portfolio.optic
   }
 ];
 
