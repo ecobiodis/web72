@@ -42,7 +42,8 @@ const IMAGES = {
     boutique: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80",
     business: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
     sushi: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
-    optic: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80"
+    optic: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80",
+    luxury: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
   }
 };
 
@@ -76,6 +77,12 @@ const PORTFOLIO_SITES = [
     category: "Santé / Opticien",
     url: "https://par-optic-berrechid.vercel.app/",
     image: IMAGES.portfolio.optic
+  },
+  {
+    title: "Dar Luxury",
+    category: "Immobilier / Luxe",
+    url: "https://darluxury.vercel.app/",
+    image: IMAGES.portfolio.luxury
   }
 ];
 
