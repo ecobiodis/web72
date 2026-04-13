@@ -42,7 +42,7 @@ const IMAGES = {
     boutique: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&w=800&q=80",
     business: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
     sushi: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
-    optic: "https://images.unsplash.com/photo-1511317558624-0404098401c8?auto=format&fit=crop&w=800&q=80"
+    optic: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80"
   }
 };
 
@@ -104,7 +104,7 @@ const Navbar = ({ onNavigate }: { onNavigate: (target: string) => void }) => {
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         <div onClick={() => onNavigate("#home")} className="flex items-center gap-2 md:gap-3 group cursor-pointer">
           <div className="w-9 h-9 md:w-12 md:h-12 bg-slate-900 rounded-lg md:rounded-2xl flex items-center justify-center text-white font-black text-lg md:text-2xl shadow-xl group-hover:bg-brand-600 transition-all duration-500 group-hover:rotate-6">W</div>
-          <span className="font-black text-xl md:text-3xl tracking-tighter text-slate-900">WEB48</span>
+          <span className="font-black text-xl md:text-3xl tracking-tighter text-slate-900">WEB48H</span>
         </div>
         
         {/* Desktop Menu */}
@@ -539,7 +539,7 @@ const ExpertServicesMini = ({ onExplore }: { onExplore: () => void }) => (
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-12 bg-white rounded-[2rem] md:rounded-[3rem] border border-slate-100 shadow-sm">
         <div className="text-center md:text-left">
-          <div className="font-black text-xl md:text-2xl tracking-tighter text-slate-900 mb-1">WEB48</div>
+          <div className="font-black text-xl md:text-2xl tracking-tighter text-slate-900 mb-1">WEB48H</div>
           <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-2 uppercase tracking-tighter">Plus que de simples sites.</h2>
           <p className="text-sm md:text-lg text-slate-500 font-medium italic">SEO, Conformité CNDP, Formation E-commerce...</p>
         </div>
@@ -566,7 +566,7 @@ const ServicesPage = ({ onNavigate }: { onNavigate: (target: string) => void }) 
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <div onClick={() => onNavigate("#home")} className="flex items-center gap-3 cursor-pointer group">
           <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black group-hover:bg-brand-600 transition-colors">W</div>
-          <span className="font-black text-2xl tracking-tighter">WEB48</span>
+          <span className="font-black text-2xl tracking-tighter">WEB48H</span>
         </div>
         <button onClick={() => onNavigate("#home")} className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:text-brand-600 transition-colors">
           <ArrowRight size={14} className="rotate-180" />
@@ -874,7 +874,7 @@ const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
       <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
         <div onClick={() => onNavigate("#home")} className="flex items-center gap-3 cursor-pointer">
           <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl">W</div>
-          <span className="font-black text-3xl tracking-tighter text-slate-900">WEB48</span>
+          <span className="font-black text-3xl tracking-tighter text-slate-900">WEB48H</span>
         </div>
         <div className="flex flex-col items-center md:items-end gap-4">
           <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
@@ -896,7 +896,7 @@ const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-50">
         <div className="text-slate-400 text-[10px] font-bold uppercase tracking-widest text-center md:text-left">
-          © 2026 WEB48 MAROC. TOUS DROITS RÉSERVÉS. <br className="md:hidden" />
+          © 2026 WEB48H MAROC. TOUS DROITS RÉSERVÉS. <br className="md:hidden" />
           <span className="text-slate-300">Conforme CNDP (Loi 09-08) - Protection des données personnelles.</span>
         </div>
         <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
