@@ -484,7 +484,7 @@ const Pricing = () => (
             <div className="flex flex-col items-center justify-center gap-2">
               <span className="text-2xl md:text-3xl font-bold text-slate-500 line-through decoration-red-500/50">1500 DH</span>
               <div className="flex items-baseline gap-3">
-                <span className="text-7xl md:text-9xl font-black text-white tracking-tighter">890</span>
+                <span className="text-7xl md:text-9xl font-black text-white tracking-tighter">999</span>
                 <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
               </div>
             </div>
@@ -505,7 +505,8 @@ const Pricing = () => (
               "Domaine .com, .online, .shop OFFERT*",
               "Conformité CNDP Incluse",
               "Sécurité SSL & HTTPS",
-              "Indexation Google Express"
+              "Indexation Google Express",
+              "4 Affiches Réseaux Sociaux (1080x1080)"
             ].map((item, i) => (
               <li key={i} className="flex items-center gap-3 md:gap-4 text-slate-300 font-bold text-xs md:text-base">
                 <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
