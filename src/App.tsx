@@ -44,7 +44,9 @@ const IMAGES = {
     sushi: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
     optic: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80",
     luxury: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-    pastry: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80"
+    pastry: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80",
+    beauty: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+    personal: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
   }
 };
 
@@ -90,6 +92,18 @@ const PORTFOLIO_SITES = [
     category: "Gastronomie / Pâtisserie",
     url: "https://said-tijara.vercel.app/",
     image: IMAGES.portfolio.pastry
+  },
+  {
+    title: "Atelier Beauté Omega",
+    category: "Beauté / Salon",
+    url: "https://atelier-beaute-omega.vercel.app/",
+    image: IMAGES.portfolio.beauty
+  },
+  {
+    title: "Anouar FLP",
+    category: "Business / Coaching",
+    url: "https://anouarflp.vercel.app/",
+    image: IMAGES.portfolio.personal
   }
 ];
 
