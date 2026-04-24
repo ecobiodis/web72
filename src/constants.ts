@@ -1,5 +1,5 @@
 export const IMAGES = {
-  hero: "https://i.postimg.cc/YCS08frV/image-2-hero-web48h.png",
+  hero: "https://i.postimg.cc/qMFqb6zS/image-finale-hero.png",
   problem: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
   expertise: {
     dev: "https://i.postimg.cc/c45tWmTv/close-up-image-programer-working-his-desk-office.jpg",
