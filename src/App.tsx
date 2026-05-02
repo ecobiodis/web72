@@ -21,8 +21,6 @@ import {
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import { IMAGES, PORTFOLIO_SITES } from "./constants";
-import { Dashboard } from "./components/Dashboard";
-import { db, collection, onSnapshot, query, orderBy } from "./lib/firebase";
 
 const WHATSAPP_NUMBER = "+212662825890";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}`;
@@ -316,9 +314,8 @@ const Problem = () => (
   </section>
 );
 
-const Portfolio = ({ dynamicItems }: { dynamicItems?: typeof PORTFOLIO_SITES }) => {
-  // Fusionner les projets statiques de constants.ts avec les nouveaux projets dynamiques de Firebase
-  const items = [...(dynamicItems || []), ...PORTFOLIO_SITES];
+const Portfolio = () => {
+  const items = PORTFOLIO_SITES;
   
   return (
     <section id="portfolio" className="py-16 md:py-32 px-4 md:px-6 bg-[#fafafa]">
@@ -554,7 +551,7 @@ const ExpertServicesMini = ({ onExplore }: { onExplore: () => void }) => (
   </section>
 );
 
-const ServicesPage = ({ onNavigate, onOpenDashboard, dashboardOpen, onCloseDashboard }: { onNavigate: (target: string) => void, onOpenDashboard: () => void, dashboardOpen: boolean, onCloseDashboard: () => void }) => (
+const ServicesPage = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
   <div className="min-h-screen bg-white font-sans selection:bg-brand-100 selection:text-brand-900">
     <nav className="py-6 bg-white border-b border-slate-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -689,13 +686,7 @@ const ServicesPage = ({ onNavigate, onOpenDashboard, dashboardOpen, onCloseDashb
       </div>
     </main>
 
-    <Footer onNavigate={onNavigate} onOpenDashboard={onOpenDashboard} />
-
-    <AnimatePresence>
-      {dashboardOpen && (
-        <Dashboard isOpen={dashboardOpen} onClose={onCloseDashboard} />
-      )}
-    </AnimatePresence>
+    <Footer onNavigate={onNavigate} />
   </div>
 );
 
@@ -868,7 +859,7 @@ const FinalCTA = () => (
   </section>
 );
 
-const Footer = ({ onNavigate, onOpenDashboard }: { onNavigate: (target: string) => void, onOpenDashboard: () => void }) => (
+const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
   <footer className="py-20 px-6 bg-white border-t border-slate-100">
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
@@ -900,7 +891,6 @@ const Footer = ({ onNavigate, onOpenDashboard }: { onNavigate: (target: string) 
           <span className="text-slate-300">Conforme CNDP (Loi 09-08) - Protection des données personnelles.</span>
         </div>
         <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
-          <button onClick={onOpenDashboard} className="hover:text-slate-900 transition-colors uppercase cursor-pointer">Espace Client</button>
           <a href="#" className="hover:text-slate-900 transition-colors">Mentions Légales</a>
           <a href="#" className="hover:text-slate-900 transition-colors">Confidentialité</a>
         </div>
@@ -927,19 +917,6 @@ const StickyWhatsApp = () => (
 
 export default function App() {
   const [view, setView] = useState<'home' | 'services'>('home');
-  const [dashboardOpen, setDashboardOpen] = useState(false);
-  const [dynamicPortfolio, setDynamicPortfolio] = useState<typeof PORTFOLIO_SITES>([]);
-
-  useEffect(() => {
-    const q = query(collection(db, 'portfolio'), orderBy('order', 'asc'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const items = snapshot.docs.map(doc => ({
-        ...doc.data()
-      })) as typeof PORTFOLIO_SITES;
-      setDynamicPortfolio(items);
-    });
-    return () => unsubscribe();
-  }, []);
 
   const handleNavigate = (target: string) => {
     if (target === 'services') {
@@ -971,9 +948,6 @@ export default function App() {
     return (
       <ServicesPage 
         onNavigate={handleNavigate} 
-        onOpenDashboard={() => setDashboardOpen(true)}
-        dashboardOpen={dashboardOpen}
-        onCloseDashboard={() => setDashboardOpen(false)}
       />
     );
   }
@@ -985,7 +959,7 @@ export default function App() {
         <Hero />
         <Problem />
         <Solution onNavigate={handleNavigate} />
-        <Portfolio dynamicItems={dynamicPortfolio} />
+        <Portfolio />
         <ExpertServicesMini onExplore={() => setView('services')} />
         <Expertise />
         <Process />
@@ -993,14 +967,8 @@ export default function App() {
         <FAQ />
         <FinalCTA />
       </main>
-      <Footer onNavigate={handleNavigate} onOpenDashboard={() => setDashboardOpen(true)} />
+      <Footer onNavigate={handleNavigate} />
       <StickyWhatsApp />
-      
-      <AnimatePresence>
-        {dashboardOpen && (
-          <Dashboard isOpen={dashboardOpen} onClose={() => setDashboardOpen(false)} />
-        )}
-      </AnimatePresence>
     </div>
   );
 }
