@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isVerified() && request.auth.token.email == 'ecobiodis@gmail.com';
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Site Config
+    match /config/main {
+      allow read: if true;
+      allow write: if isAdmin();
+      
+      function isValidConfig(data) {
+        return data.heroTitle is string && data.heroTitle.size() <= 200 &&
+               data.heroSubtitle is string && data.heroSubtitle.size() <= 500 &&
+               data.whatsappNumber is string && data.whatsappNumber.size() <= 20;
+      }
+    }
+
+    // Portfolio
+    match /portfolio/{itemId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidPortfolio(request.resource.data);
+      allow update: if isAdmin() && isValidPortfolio(request.resource.data) &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title', 'category', 'url', 'image', 'order']);
+      allow delete: if isAdmin();
+
+      function isValidPortfolio(data) {
+        return data.title is string && data.title.size() <= 100 &&
+               data.category is string && data.category.size() <= 100 &&
+               data.url is string && data.url.size() <= 200 &&
+               data.image is string && data.image.size() <= 300 &&
+               (data.order == null || data.order is number);
+      }
+    }
+  }
+}

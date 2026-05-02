@@ -15,11 +15,14 @@ import {
   ShieldCheck,
   Rocket,
   Menu,
-  X
+  X,
+  Check
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import { IMAGES, PORTFOLIO_SITES } from "./constants";
+import { Dashboard } from "./components/Dashboard";
+import { db, collection, onSnapshot, query, orderBy } from "./lib/firebase";
 
 const WHATSAPP_NUMBER = "+212662825890";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER.replace('+', '')}`;
@@ -313,54 +316,59 @@ const Problem = () => (
   </section>
 );
 
-const Portfolio = () => (
-  <section id="portfolio" className="py-16 md:py-32 px-4 md:px-6 bg-[#fafafa]">
-    <div className="max-w-7xl mx-auto">
-      <div className="text-center mb-12 md:mb-24">
-        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Nos <br />Réalisations.</h2>
-        <p className="text-base md:text-xl text-slate-500 font-medium">Découvrez des exemples de sites livrés en 48h.</p>
-      </div>
+const Portfolio = ({ dynamicItems }: { dynamicItems?: typeof PORTFOLIO_SITES }) => {
+  // Fusionner les projets statiques de constants.ts avec les nouveaux projets dynamiques de Firebase
+  const items = [...(dynamicItems || []), ...PORTFOLIO_SITES];
+  
+  return (
+    <section id="portfolio" className="py-16 md:py-32 px-4 md:px-6 bg-[#fafafa]">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 md:mb-24">
+          <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Nos <br />Réalisations.</h2>
+          <p className="text-base md:text-xl text-slate-500 font-medium">Découvrez des exemples de sites livrés en 48h.</p>
+        </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-        {PORTFOLIO_SITES.map((site, i) => (
-          <motion.div 
-            key={i}
-            whileHover={{ y: -10 }}
-            className="group bento-card overflow-hidden flex flex-col"
-          >
-            <div className="h-48 md:h-64 overflow-hidden relative">
-              <img 
-                src={site.image} 
-                alt={site.title} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
-              <div className="absolute bottom-4 left-4">
-                <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-full border border-white/10">
-                  {site.category}
-                </span>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+          {items.map((site, i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ y: -10 }}
+              className="group bento-card overflow-hidden flex flex-col"
+            >
+              <div className="h-48 md:h-64 overflow-hidden relative">
+                <img 
+                  src={site.image} 
+                  alt={site.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                <div className="absolute bottom-4 left-4">
+                  <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-full border border-white/10">
+                    {site.category}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="p-6 md:p-8 flex flex-col flex-grow">
-              <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-4 uppercase tracking-tighter">{site.title}</h3>
-              <div className="mt-auto">
-                <a 
-                  href={site.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-brand-600 font-black text-xs md:text-sm uppercase tracking-widest hover:gap-4 transition-all"
-                >
-                  Voir le site <ExternalLink size={14} />
-                </a>
+              <div className="p-6 md:p-8 flex flex-col flex-grow">
+                <h3 className="text-xl md:text-2xl font-black text-slate-900 mb-4 uppercase tracking-tighter">{site.title}</h3>
+                <div className="mt-auto">
+                  <a 
+                    href={site.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-brand-600 font-black text-xs md:text-sm uppercase tracking-widest hover:gap-4 transition-all"
+                  >
+                    Voir le site <ExternalLink size={14} />
+                  </a>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 const Solution = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
   <section className="py-16 md:py-32 px-4 md:px-6 bg-slate-900 text-white relative overflow-hidden">
@@ -414,65 +422,105 @@ const Pricing = () => (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-100/30 rounded-full blur-[150px] pointer-events-none"></div>
     <div className="max-w-7xl mx-auto relative z-10">
       <div className="text-center mb-12 md:mb-24">
-        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Tarif <br />Unique.</h2>
-        <p className="text-base md:text-xl text-slate-500 font-medium">Tout ce dont vous avez besoin pour réussir en ligne.</p>
+        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Nos <br />Offres.</h2>
+        <p className="text-base md:text-xl text-slate-500 font-medium">Deux configurations pour une présence digitale sans compromis.</p>
       </div>
       
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-slate-900 p-8 md:p-16 rounded-2xl md:rounded-[4rem] shadow-[0_40px_80px_-15px_rgba(2,109,198,0.3)] flex flex-col relative overflow-hidden border border-white/10">
-          <div className="absolute top-0 right-0 bg-brand-500 text-white px-6 md:px-10 py-2 md:py-3 rounded-bl-xl md:rounded-bl-[2rem] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em]">
-            Offre Limitée
-          </div>
-          <div className="mb-10 md:mb-16 text-center">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-brand-400 text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 md:mb-8">Pack Visibilité Pro</div>
-            <h3 className="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter leading-none">Site Web <br />Professionnel</h3>
-            <div className="flex flex-col items-center justify-center gap-2">
-              <span className="text-2xl md:text-3xl font-bold text-slate-500 line-through decoration-red-500/50">1500 DH</span>
-              <div className="flex items-baseline gap-3">
-                <span className="text-7xl md:text-9xl font-black text-white tracking-tighter">999</span>
-                <span className="text-2xl md:text-4xl font-black text-brand-500 uppercase">DH</span>
+      <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+        {/* Pack FLASH */}
+        <div className="bg-white border border-slate-200 p-8 md:p-12 rounded-2xl md:rounded-[4rem] shadow-xl flex flex-col relative overflow-hidden group hover:border-brand-500/30 transition-colors">
+          <div className="mb-10 text-center">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-600 text-[10px] font-black uppercase tracking-widest mb-6">L'Essentiel Rapide</div>
+            <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 uppercase tracking-tighter leading-none">Pack <br/>FLASH</h3>
+            <p className="text-slate-500 text-sm md:text-base font-medium mb-8 uppercase tracking-widest leading-relaxed px-4">Ta vitrine pro active en 48h chrono.</p>
+            <div className="flex flex-col items-center justify-center gap-1">
+              <span className="text-lg font-bold text-slate-300 line-through italic">1200 DH</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-7xl md:text-8xl font-black text-slate-900 tracking-tighter">690</span>
+                <span className="text-2xl md:text-3xl font-black text-brand-600 uppercase">DH</span>
               </div>
             </div>
-            <p className="text-brand-400 font-black mt-4 md:mt-6 uppercase tracking-[0.2em] text-[10px] md:text-xs">Offre Tout-Inclus - Sans frais cachés</p>
-            <div className="mt-6 p-4 bg-brand-500/10 rounded-2xl border border-brand-500/20">
-              <p className="text-brand-400 font-black text-[10px] md:text-xs uppercase tracking-widest">
-                Paiement après satisfaction
-              </p>
-            </div>
           </div>
-          <ul className="grid sm:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
+          
+          <ul className="space-y-4 mb-12 flex-grow">
             {[
-              "Site ultra-rapide (React/Vite)",
-              "Design moderne & responsive",
-              "Bouton WhatsApp flottant",
-              "Livraison garantie en 48h",
-              "Hébergement gratuit à vie",
-              "Domaine .com, .online, .shop OFFERT*",
-              "Conformité CNDP Incluse",
-              "Sécurité SSL & HTTPS",
-              "Indexation Google Express",
-              "4 Affiches Réseaux Sociaux (1080x1080)"
-            ].map((item, i) => (
-              <li key={i} className="flex items-center gap-3 md:gap-4 text-slate-300 font-bold text-xs md:text-base">
-                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={14} className="text-brand-500" />
+              "Livraison Éclair (48H)",
+              "Design Moderne & Responsive",
+              "Bouton WhatsApp Direct",
+              "Hébergement Cloud Inclus",
+              "Configuration Nom de Domaine*",
+              "SEO Basique (Google)",
+              "Zéro Frais de Maintenance"
+            ].map((feature, i) => (
+              <li key={i} className="flex items-center gap-4 text-slate-700 font-bold text-xs md:text-base uppercase tracking-tight">
+                <div className="w-5 h-5 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check size={12} strokeWidth={4} />
                 </div>
-                {item}
+                {feature}
               </li>
             ))}
           </ul>
-          <p className="text-[9px] md:text-[10px] text-slate-500 mb-8 italic leading-relaxed">
-            * Nom de domaine offert pour la première année. <br />
-            ** Hébergement gratuit inclus via Vercel/Netlify. <br />
-            *** Indexation Google Express : votre site visible sur Google en moins de 24h.
-          </p>
+
+          <div className="mb-8 p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200 text-center">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Achat du domaine après validation du paiement</p>
+          </div>
+          
           <a 
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-5 md:py-8 rounded-2xl md:rounded-3xl bg-brand-600 text-white font-black text-center hover:bg-brand-500 transition-all shadow-2xl uppercase tracking-widest text-xs md:text-lg"
+            className="w-full bg-slate-100 text-slate-900 py-5 md:py-8 rounded-xl md:rounded-[2rem] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-slate-200 transition-all text-center flex items-center justify-center gap-4 group"
           >
-            Lancer mon projet maintenant
+            SÉLECTIONNER FLASH <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+          </a>
+        </div>
+
+        {/* Pack BUSINESS */}
+        <div className="bg-slate-900 p-8 md:p-12 rounded-2xl md:rounded-[4rem] shadow-2xl flex flex-col relative overflow-hidden border border-white/10">
+          <div className="absolute top-0 right-0 bg-brand-500 text-white px-8 py-3 rounded-bl-3xl text-[10px] font-black uppercase tracking-[0.2em]">Best-Seller</div>
+          <div className="mb-10 text-center">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-brand-500/20 text-brand-400 text-[10px] font-black uppercase tracking-widest mb-6">Autonomie Totale</div>
+            <h3 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter leading-none">Pack <br/>BUSINESS</h3>
+            <p className="text-slate-400 text-sm md:text-base font-medium mb-8 uppercase tracking-widest italic leading-relaxed px-4">Modifie ton contenu sans limites.</p>
+            <div className="flex flex-col items-center justify-center gap-1">
+              <span className="text-lg font-bold text-slate-600 line-through italic">2500 DH</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-7xl md:text-8xl font-black text-white tracking-tighter">1290</span>
+                <span className="text-2xl md:text-3xl font-black text-brand-500 uppercase">DH</span>
+              </div>
+            </div>
+          </div>
+          
+          <ul className="space-y-4 mb-12 flex-grow">
+            {[
+              "Tout le Pack FLASH",
+              "Dashboard 'Espace Client'",
+              "Modifiez Textes & Photos 24h/7j",
+              "Gestion de Portfolio Interactive",
+              "Domaine .COM Offert (1 an)",
+              "Indexation Google Express",
+              "Support VIP 6 Mois"
+            ].map((feature, i) => (
+              <li key={i} className="flex items-center gap-4 text-slate-100 font-bold text-xs md:text-base uppercase tracking-tight">
+                <div className="w-5 h-5 bg-brand-500 text-white rounded-full flex items-center justify-center flex-shrink-0">
+                  <Check size={12} strokeWidth={4} />
+                </div>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mb-8 p-4 bg-white/5 rounded-2xl border border-dashed border-white/10 text-center">
+            <p className="text-[10px] font-black text-brand-400 uppercase tracking-widest">Engagement sécurisé • Lancement immédiat</p>
+          </div>
+          
+          <a 
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-brand-600 text-white py-5 md:py-8 rounded-xl md:rounded-[2rem] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-brand-500 transition-all text-center flex items-center justify-center gap-4 shadow-[0_20px_40px_-5px_rgba(2,109,198,0.4)] group"
+          >
+            LANCER MON PROJET <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
           </a>
         </div>
       </div>
@@ -506,7 +554,7 @@ const ExpertServicesMini = ({ onExplore }: { onExplore: () => void }) => (
   </section>
 );
 
-const ServicesPage = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
+const ServicesPage = ({ onNavigate, onOpenDashboard, dashboardOpen, onCloseDashboard }: { onNavigate: (target: string) => void, onOpenDashboard: () => void, dashboardOpen: boolean, onCloseDashboard: () => void }) => (
   <div className="min-h-screen bg-white font-sans selection:bg-brand-100 selection:text-brand-900">
     <nav className="py-6 bg-white border-b border-slate-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -641,7 +689,13 @@ const ServicesPage = ({ onNavigate }: { onNavigate: (target: string) => void }) 
       </div>
     </main>
 
-    <Footer onNavigate={onNavigate} />
+    <Footer onNavigate={onNavigate} onOpenDashboard={onOpenDashboard} />
+
+    <AnimatePresence>
+      {dashboardOpen && (
+        <Dashboard isOpen={dashboardOpen} onClose={onCloseDashboard} />
+      )}
+    </AnimatePresence>
   </div>
 );
 
@@ -814,7 +868,7 @@ const FinalCTA = () => (
   </section>
 );
 
-const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
+const Footer = ({ onNavigate, onOpenDashboard }: { onNavigate: (target: string) => void, onOpenDashboard: () => void }) => (
   <footer className="py-20 px-6 bg-white border-t border-slate-100">
     <div className="max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
@@ -824,11 +878,11 @@ const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
         </div>
         <div className="flex flex-col items-center md:items-end gap-4">
           <div className="flex flex-wrap justify-center gap-10 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
-            <button onClick={() => onNavigate("#offres")} className="hover:text-brand-600 transition-colors uppercase font-black">Offres</button>
-            <button onClick={() => onNavigate("services")} className="hover:text-brand-600 transition-colors uppercase font-black">Services +</button>
-            <button onClick={() => onNavigate("#portfolio")} className="hover:text-brand-600 transition-colors uppercase font-black">Portfolio</button>
-            <button onClick={() => onNavigate("#process")} className="hover:text-brand-600 transition-colors uppercase font-black">Processus</button>
-            <button onClick={() => onNavigate("#faq")} className="hover:text-brand-600 transition-colors uppercase font-black">FAQ</button>
+            <button onClick={() => onNavigate("#offres")} className="hover:text-brand-600 transition-colors uppercase font-black cursor-pointer">Offres</button>
+            <button onClick={() => onNavigate("services")} className="hover:text-brand-600 transition-colors uppercase font-black cursor-pointer">Services +</button>
+            <button onClick={() => onNavigate("#portfolio")} className="hover:text-brand-600 transition-colors uppercase font-black cursor-pointer">Portfolio</button>
+            <button onClick={() => onNavigate("#process")} className="hover:text-brand-600 transition-colors uppercase font-black cursor-pointer">Processus</button>
+            <button onClick={() => onNavigate("#faq")} className="hover:text-brand-600 transition-colors uppercase font-black cursor-pointer">FAQ</button>
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-xs font-black text-slate-600">
             <a href={`tel:${WHATSAPP_NUMBER}`} className="flex items-center gap-2 hover:text-brand-600 transition-colors">
@@ -846,6 +900,7 @@ const Footer = ({ onNavigate }: { onNavigate: (target: string) => void }) => (
           <span className="text-slate-300">Conforme CNDP (Loi 09-08) - Protection des données personnelles.</span>
         </div>
         <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
+          <button onClick={onOpenDashboard} className="hover:text-slate-900 transition-colors uppercase cursor-pointer">Espace Client</button>
           <a href="#" className="hover:text-slate-900 transition-colors">Mentions Légales</a>
           <a href="#" className="hover:text-slate-900 transition-colors">Confidentialité</a>
         </div>
@@ -872,6 +927,19 @@ const StickyWhatsApp = () => (
 
 export default function App() {
   const [view, setView] = useState<'home' | 'services'>('home');
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [dynamicPortfolio, setDynamicPortfolio] = useState<typeof PORTFOLIO_SITES>([]);
+
+  useEffect(() => {
+    const q = query(collection(db, 'portfolio'), orderBy('order', 'asc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({
+        ...doc.data()
+      })) as typeof PORTFOLIO_SITES;
+      setDynamicPortfolio(items);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleNavigate = (target: string) => {
     if (target === 'services') {
@@ -900,7 +968,14 @@ export default function App() {
   };
 
   if (view === 'services') {
-    return <ServicesPage onNavigate={handleNavigate} />;
+    return (
+      <ServicesPage 
+        onNavigate={handleNavigate} 
+        onOpenDashboard={() => setDashboardOpen(true)}
+        dashboardOpen={dashboardOpen}
+        onCloseDashboard={() => setDashboardOpen(false)}
+      />
+    );
   }
 
   return (
@@ -910,7 +985,7 @@ export default function App() {
         <Hero />
         <Problem />
         <Solution onNavigate={handleNavigate} />
-        <Portfolio />
+        <Portfolio dynamicItems={dynamicPortfolio} />
         <ExpertServicesMini onExplore={() => setView('services')} />
         <Expertise />
         <Process />
@@ -918,8 +993,14 @@ export default function App() {
         <FAQ />
         <FinalCTA />
       </main>
-      <Footer onNavigate={handleNavigate} />
+      <Footer onNavigate={handleNavigate} onOpenDashboard={() => setDashboardOpen(true)} />
       <StickyWhatsApp />
+      
+      <AnimatePresence>
+        {dashboardOpen && (
+          <Dashboard isOpen={dashboardOpen} onClose={() => setDashboardOpen(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
