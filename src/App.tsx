@@ -442,15 +442,35 @@ const Pricing = () => (
           <div className="md:col-span-5 p-8 md:p-12 lg:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/5 bg-slate-950/40">
             <div>
               <span className="text-brand-400 text-xs font-black uppercase tracking-widest block mb-4">Pack Visibilité Pro</span>
-              <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tight mb-6">Votre Site Clé en Main</h3>
+              <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tight mb-6">Le site qui inspire confiance dès la première visite</h3>
               
-              <div className="space-y-1 mb-8">
-                <span className="text-slate-500 line-through text-lg font-bold">2 000 DH</span>
+              <div className="space-y-1 mb-6">
+                <span className="text-slate-500 line-through text-lg font-bold">1 990 DH</span>
                 <div className="flex items-baseline gap-2">
                   <span className="text-6xl lg:text-7xl font-black tracking-tight text-white">999</span>
                   <span className="text-2xl lg:text-3xl font-black text-brand-500">DH</span>
                 </div>
-                <p className="text-xs text-brand-400 font-bold uppercase tracking-wider">Paiement unique • Hébergement gratuit à vie</p>
+                <div className="inline-block px-2.5 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-[10px] font-black uppercase tracking-wider mt-2">
+                  Offre de lancement limitée
+                </div>
+              </div>
+
+              {/* Value checkmarks under price */}
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wide">
+                  <Check size={14} className="text-brand-400" strokeWidth={3} />
+                  Paiement unique
+                </div>
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wide">
+                  <Check size={14} className="text-brand-400" strokeWidth={3} />
+                  Aucun abonnement mensuel
+                </div>
+              </div>
+
+              {/* Domain premium badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-bold mb-6">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Domaine .com ou .pro offert pendant 1 an
               </div>
             </div>
 
@@ -458,9 +478,14 @@ const Pricing = () => (
               {/* Domain Registration Note */}
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                 <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
-                  <span className="font-bold text-brand-400 block uppercase mb-1 tracking-wider">🔒 Réservation Sécurisée</span>
-                  Votre nom de domaine officiel est réservé et configuré immédiatement après validation du paiement pour garantir son attribution officielle et éviter tout désistement.
+                  <span className="font-bold text-brand-400 block uppercase mb-1 tracking-wider">🔒 Domaine réservé immédiatement</span>
+                  Votre nom de domaine est sécurisé dès validation afin qu'il ne puisse pas être réservé par un tiers.
                 </p>
+              </div>
+
+              {/* Risk reduction element */}
+              <div className="flex items-center justify-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wide">
+                <span>🛡️</span> Vous ne payez rien de plus. Aucun frais caché.
               </div>
 
               <a 
@@ -469,39 +494,54 @@ const Pricing = () => (
                 rel="noopener noreferrer"
                 className="w-full py-5 rounded-2xl bg-brand-600 text-white font-black text-center hover:bg-brand-500 transition-all shadow-[0_20px_40px_rgba(2,109,198,0.3)] hover:shadow-brand-500/20 uppercase tracking-widest text-xs lg:text-sm flex items-center justify-center gap-3 group cursor-pointer"
               >
-                Lancer mon projet maintenant
+                RECEVOIR MON APERÇU <span className="text-emerald-300 font-extrabold">GRATUIT</span>
                 <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform" />
               </a>
+
+              {/* Micro-urgency element */}
+              <p className="text-[11px] text-slate-500 text-center font-bold uppercase tracking-wider">
+                Offre de lancement disponible pour une durée limitée.
+              </p>
             </div>
           </div>
 
           {/* Right Column: Key capabilities & details */}
-          <div className="md:col-span-7 p-8 md:p-12 lg:p-16">
-            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-8">Inclus dans votre site internet :</h4>
-            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-6">
-              {[
-                { title: "Domaine .com / .pro offert", desc: "Votre adresse internet officielle offerte pour la première année (selon disponibilité)." },
-                { title: "Livraison Garantie 48H", desc: "Mise en ligne ultra-rapide de votre site internet sous 2 jours maximum." },
-                { title: "Design Mobile Ultra-Fluide", desc: "Une interface haut de gamme, moderne et optimisée pour tous les smartphones." },
-                { title: "WhatsApp Direct Intégré", desc: "Un bouton flottant direct pour recevoir des messages de vos prospects instantanément." },
-                { title: "Indexation Google Express", desc: "Votre site déclaré officiellement sur Google pour être rapidement visible." },
-                { title: "Hébergement Cloud à Vie", desc: "Aucun abonnement récurrent requis, votre site reste hébergé gratuitement." },
-                { title: "Sécurité SSL Certifiée", desc: "Connexion cryptée en HTTPS avec cadenas de sécurité pour rassurer vos clients." },
-                { title: "Zéro Frais Cachés", desc: "Pas de maintenance mensuelle payante obligatoire, vous possédez 100% de votre site." },
-                { title: "Rédaction & Contenu Pro", desc: "Mise en valeur personnalisée de votre activité avec des textes et images de haute qualité." },
-                { title: "Support Client Dédié", desc: "Accompagnement réactif par WhatsApp et email pour vos moindres questions techniques." }
-              ].map((item, i) => (
-                <li key={i} className="flex gap-3">
-                  <div className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-brand-500/20">
-                    <Check size={12} className="text-brand-400" strokeWidth={3} />
-                  </div>
-                  <div>
-                    <span className="block text-sm font-bold text-white uppercase tracking-tight leading-none mb-1">{item.title}</span>
-                    <p className="text-[11px] text-slate-400 leading-normal font-medium">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+          <div className="md:col-span-7 p-8 md:p-12 lg:p-16 flex flex-col justify-between">
+            <div>
+              <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-8">Inclus dans votre site internet :</h4>
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-6">
+                {[
+                  { title: "Recevez vos prospects directement sur WhatsApp", desc: "Un bouton d'appel à l'action direct pour convertir chaque visiteur en client." },
+                  { title: "Soyez visible sur Google rapidement", desc: "Indexation express optimisée pour apparaître sur les moteurs de recherche." },
+                  { title: "Compatible mobile, tablette et ordinateur", desc: "Une expérience fluide et ultra-rapide sur tous les écrans du marché." },
+                  { title: "Site sécurisé HTTPS", desc: "Cadenas de sécurité et certificat de cryptage SSL inclus pour rassurer vos clients." },
+                  { title: "Domaine .com offert", desc: "Votre adresse internet officielle offerte (.com ou .pro selon disponibilité)." },
+                  { title: "Livraison garantie sous 48 heures", desc: "Une rapidité d'exécution sans concession sur la qualité visuelle." },
+                  { title: "Vous êtes propriétaire de votre site", desc: "Pas de location ni de dépendance, vous possédez 100% de vos fichiers et de votre domaine." },
+                  { title: "Aucun abonnement mensuel", desc: "Pas de frais récurrents cachés, un investissement rentable dès le premier jour." }
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-3">
+                    <div className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-brand-500/20">
+                      <Check size={12} className="text-brand-400" strokeWidth={3} />
+                    </div>
+                    <div>
+                      <span className="block text-sm font-bold text-white uppercase tracking-tight leading-none mb-1">{item.title}</span>
+                      <p className="text-[11px] text-slate-400 leading-normal font-medium">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Mini social proof */}
+            <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+              <div className="flex text-amber-400 gap-1 text-lg leading-none">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
+                Déjà plusieurs entrepreneurs marocains nous font confiance.
+              </p>
+            </div>
           </div>
         </div>
       </div>
