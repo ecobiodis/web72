@@ -418,107 +418,91 @@ const Pricing = () => (
   <section id="offres" className="py-16 md:py-32 px-4 md:px-6 bg-[#fafafa] relative overflow-hidden">
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-100/30 rounded-full blur-[150px] pointer-events-none"></div>
     <div className="max-w-7xl mx-auto relative z-10">
-      <div className="text-center mb-12 md:mb-24">
-        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">Nos <br />Offres.</h2>
-        <p className="text-base md:text-xl text-slate-500 font-medium">Deux configurations pour une présence digitale sans compromis.</p>
+      <div className="text-center mb-12 md:mb-20">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 text-brand-600 text-xs font-bold uppercase tracking-wider mb-4 border border-brand-100">
+          <Zap size={14} className="animate-pulse text-brand-500" />
+          Offre Spéciale de Lancement
+        </div>
+        <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter leading-none uppercase">
+          Tarif <br />Unique.
+        </h2>
+        <p className="text-base md:text-xl text-slate-500 font-medium max-w-2xl mx-auto">
+          Tout ce dont votre entreprise a besoin pour briller sur internet, sans aucun abonnement ni frais cachés.
+        </p>
       </div>
       
-      <div className="grid lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
-        {/* Pack FLASH */}
-        <div className="bg-white border border-slate-200 p-8 md:p-12 rounded-2xl md:rounded-[4rem] shadow-xl flex flex-col relative overflow-hidden group hover:border-brand-500/30 transition-colors">
-          <div className="mb-10 text-center">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-600 text-[10px] font-black uppercase tracking-widest mb-6">L'Essentiel Rapide</div>
-            <h3 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 uppercase tracking-tighter leading-none">Pack <br/>FLASH</h3>
-            <p className="text-slate-500 text-sm md:text-base font-medium mb-8 uppercase tracking-widest leading-relaxed px-4">Ta vitrine pro active en 48h chrono.</p>
-            <div className="flex flex-col items-center justify-center gap-1">
-              <span className="text-lg font-bold text-slate-300 line-through italic">1200 DH</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-7xl md:text-8xl font-black text-slate-900 tracking-tighter">690</span>
-                <span className="text-2xl md:text-3xl font-black text-brand-600 uppercase">DH</span>
-              </div>
-            </div>
-          </div>
-          
-          <ul className="space-y-4 mb-12 flex-grow">
-            {[
-              "Livraison Éclair (48H)",
-              "Design Moderne & Responsive",
-              "Bouton WhatsApp Direct",
-              "Hébergement Cloud Inclus",
-              "Configuration Nom de Domaine*",
-              "SEO Basique (Google)",
-              "Zéro Frais de Maintenance"
-            ].map((feature, i) => (
-              <li key={i} className="flex items-center gap-4 text-slate-700 font-bold text-xs md:text-base uppercase tracking-tight">
-                <div className="w-5 h-5 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check size={12} strokeWidth={4} />
-                </div>
-                {feature}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mb-8 p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200 text-center">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Achat du domaine après validation du paiement</p>
-          </div>
-          
-          <a 
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-slate-100 text-slate-900 py-5 md:py-8 rounded-xl md:rounded-[2rem] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-slate-200 transition-all text-center flex items-center justify-center gap-4 group"
-          >
-            SÉLECTIONNER FLASH <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-          </a>
+      <div className="max-w-5xl mx-auto bg-slate-900 text-white rounded-3xl md:rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(2,109,198,0.25)] border border-white/10 overflow-hidden">
+        {/* Top Banner for urgent/promo aspect */}
+        <div className="bg-brand-600 px-6 py-3.5 text-center text-xs md:text-sm font-black uppercase tracking-widest text-white flex items-center justify-center gap-2">
+          <Rocket size={16} className="animate-bounce" /> VENTE FLASH : -50% CETTE SEMAINE SEULEMENT !
         </div>
-
-        {/* Pack BUSINESS */}
-        <div className="bg-slate-900 p-8 md:p-12 rounded-2xl md:rounded-[4rem] shadow-2xl flex flex-col relative overflow-hidden border border-white/10">
-          <div className="absolute top-0 right-0 bg-brand-500 text-white px-8 py-3 rounded-bl-3xl text-[10px] font-black uppercase tracking-[0.2em]">Best-Seller</div>
-          <div className="mb-10 text-center">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-brand-500/20 text-brand-400 text-[10px] font-black uppercase tracking-widest mb-6">Autonomie Totale</div>
-            <h3 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter leading-none">Pack <br/>BUSINESS</h3>
-            <p className="text-slate-400 text-sm md:text-base font-medium mb-8 uppercase tracking-widest italic leading-relaxed px-4">Modifie ton contenu sans limites.</p>
-            <div className="flex flex-col items-center justify-center gap-1">
-              <span className="text-lg font-bold text-slate-600 line-through italic">2500 DH</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-7xl md:text-8xl font-black text-white tracking-tighter">1290</span>
-                <span className="text-2xl md:text-3xl font-black text-brand-500 uppercase">DH</span>
+        
+        <div className="grid md:grid-cols-12 gap-0">
+          {/* Left Column: Price & Call to Action */}
+          <div className="md:col-span-5 p-8 md:p-12 lg:p-16 flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/5 bg-slate-950/40">
+            <div>
+              <span className="text-brand-400 text-xs font-black uppercase tracking-widest block mb-4">Pack Visibilité Pro</span>
+              <h3 className="text-3xl lg:text-4xl font-black uppercase tracking-tight mb-6">Votre Site Clé en Main</h3>
+              
+              <div className="space-y-1 mb-8">
+                <span className="text-slate-500 line-through text-lg font-bold">2 000 DH</span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-6xl lg:text-7xl font-black tracking-tight text-white">999</span>
+                  <span className="text-2xl lg:text-3xl font-black text-brand-500">DH</span>
+                </div>
+                <p className="text-xs text-brand-400 font-bold uppercase tracking-wider">Paiement unique • Hébergement gratuit à vie</p>
               </div>
             </div>
-          </div>
-          
-          <ul className="space-y-4 mb-12 flex-grow">
-            {[
-              "Tout le Pack FLASH",
-              "Dashboard 'Espace Client'",
-              "Modifiez Textes & Photos 24h/7j",
-              "Gestion de Portfolio Interactive",
-              "Domaine .COM Offert (1 an)",
-              "Indexation Google Express",
-              "Support VIP 6 Mois"
-            ].map((feature, i) => (
-              <li key={i} className="flex items-center gap-4 text-slate-100 font-bold text-xs md:text-base uppercase tracking-tight">
-                <div className="w-5 h-5 bg-brand-500 text-white rounded-full flex items-center justify-center flex-shrink-0">
-                  <Check size={12} strokeWidth={4} />
-                </div>
-                {feature}
-              </li>
-            ))}
-          </ul>
 
-          <div className="mb-8 p-4 bg-white/5 rounded-2xl border border-dashed border-white/10 text-center">
-            <p className="text-[10px] font-black text-brand-400 uppercase tracking-widest">Engagement sécurisé • Lancement immédiat</p>
+            <div className="space-y-6">
+              {/* Domain Registration Note */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <p className="text-[11px] text-slate-300 leading-relaxed font-medium">
+                  <span className="font-bold text-brand-400 block uppercase mb-1 tracking-wider">🔒 Réservation Sécurisée</span>
+                  Votre nom de domaine officiel est réservé et configuré immédiatement après validation du paiement pour garantir son attribution officielle et éviter tout désistement.
+                </p>
+              </div>
+
+              <a 
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-5 rounded-2xl bg-brand-600 text-white font-black text-center hover:bg-brand-500 transition-all shadow-[0_20px_40px_rgba(2,109,198,0.3)] hover:shadow-brand-500/20 uppercase tracking-widest text-xs lg:text-sm flex items-center justify-center gap-3 group cursor-pointer"
+              >
+                Lancer mon projet maintenant
+                <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform" />
+              </a>
+            </div>
           </div>
-          
-          <a 
-            href={WHATSAPP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-brand-600 text-white py-5 md:py-8 rounded-xl md:rounded-[2rem] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-brand-500 transition-all text-center flex items-center justify-center gap-4 shadow-[0_20px_40px_-5px_rgba(2,109,198,0.4)] group"
-          >
-            LANCER MON PROJET <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-          </a>
+
+          {/* Right Column: Key capabilities & details */}
+          <div className="md:col-span-7 p-8 md:p-12 lg:p-16">
+            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-8">Inclus dans votre site internet :</h4>
+            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-6">
+              {[
+                { title: "Domaine .com / .pro offert", desc: "Votre adresse internet officielle offerte pour la première année (selon disponibilité)." },
+                { title: "Livraison Garantie 48H", desc: "Mise en ligne ultra-rapide de votre site internet sous 2 jours maximum." },
+                { title: "Design Mobile Ultra-Fluide", desc: "Une interface haut de gamme, moderne et optimisée pour tous les smartphones." },
+                { title: "WhatsApp Direct Intégré", desc: "Un bouton flottant direct pour recevoir des messages de vos prospects instantanément." },
+                { title: "Indexation Google Express", desc: "Votre site déclaré officiellement sur Google pour être rapidement visible." },
+                { title: "Hébergement Cloud à Vie", desc: "Aucun abonnement récurrent requis, votre site reste hébergé gratuitement." },
+                { title: "Sécurité SSL Certifiée", desc: "Connexion cryptée en HTTPS avec cadenas de sécurité pour rassurer vos clients." },
+                { title: "Zéro Frais Cachés", desc: "Pas de maintenance mensuelle payante obligatoire, vous possédez 100% de votre site." },
+                { title: "Rédaction & Contenu Pro", desc: "Mise en valeur personnalisée de votre activité avec des textes et images de haute qualité." },
+                { title: "Support Client Dédié", desc: "Accompagnement réactif par WhatsApp et email pour vos moindres questions techniques." }
+              ].map((item, i) => (
+                <li key={i} className="flex gap-3">
+                  <div className="w-5 h-5 rounded-full bg-brand-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-brand-500/20">
+                    <Check size={12} className="text-brand-400" strokeWidth={3} />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-white uppercase tracking-tight leading-none mb-1">{item.title}</span>
+                    <p className="text-[11px] text-slate-400 leading-normal font-medium">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -913,10 +897,138 @@ const StickyWhatsApp = () => (
   </a>
 );
 
+// --- Intro Preloader ---
+
+const IntroPreloader = ({ onComplete }: { onComplete: () => void }) => {
+  const [progress, setProgress] = useState(0);
+  const [statusIndex, setStatusIndex] = useState(0);
+  const statuses = [
+    "Initialisation du design premium...",
+    "Définition de l'expérience utilisateur mobile...",
+    "Optimisation des performances ultra-rapides...",
+    "Configuration de la connexion directe WhatsApp...",
+    "Sécurisation des serveurs et du domaine...",
+    "Prêt à propulser votre business !"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onComplete, 800); // Small delay to let the user enjoy the 100% complete state
+          return 100;
+        }
+        // Random increment for a more organic feel
+        const increment = Math.floor(Math.random() * 4) + 2;
+        const next = Math.min(prev + increment, 100);
+        
+        // Update status index based on progress milestones
+        if (next < 20) setStatusIndex(0);
+        else if (next < 40) setStatusIndex(1);
+        else if (next < 60) setStatusIndex(2);
+        else if (next < 75) setStatusIndex(3);
+        else if (next < 90) setStatusIndex(4);
+        else setStatusIndex(5);
+
+        return next;
+      });
+    }, 40);
+
+    return () => clearInterval(interval);
+  }, [onComplete]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 1 }}
+      exit={{ 
+        opacity: 0,
+        y: -50,
+        scale: 1.05,
+        filter: "blur(10px)",
+        transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+      }}
+      className="fixed inset-0 z-[9999] bg-slate-950 flex flex-col items-center justify-center p-6 select-none"
+    >
+      {/* Background visual accents */}
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-600/10 rounded-full blur-[120px] pointer-events-none animate-pulse delay-700"></div>
+
+      <div className="max-w-md w-full relative z-10 text-center">
+        {/* Futuristic glowing icon container */}
+        <motion.div 
+          initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
+          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative inline-flex items-center justify-center mb-12"
+        >
+          {/* Glowing background */}
+          <div className="absolute inset-0 bg-brand-600/30 rounded-[1.5rem] blur-xl animate-pulse"></div>
+          
+          <div className="w-16 h-16 bg-slate-900 rounded-[1.5rem] flex items-center justify-center text-white font-black text-3xl shadow-2xl border border-white/10 relative z-10">
+            W
+          </div>
+        </motion.div>
+
+        {/* Agency branding or wow headline */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          <h2 className="text-2xl font-black text-white uppercase tracking-[0.25em] mb-2">
+            WEB48H <span className="text-brand-500">STUDIO</span>
+          </h2>
+          <p className="text-xs text-slate-500 uppercase tracking-[0.4em] mb-12 font-semibold">
+            Vitesse & Excellence Digitale
+          </p>
+        </motion.div>
+
+        {/* Dynamic percentage display */}
+        <div className="relative mb-6">
+          <motion.span 
+            key={progress}
+            className="text-7xl md:text-8xl font-black text-white tracking-tighter block select-none font-mono"
+            style={{ fontVariantNumeric: "tabular-nums" }}
+          >
+            {progress}%
+          </motion.span>
+        </div>
+
+        {/* Minimal Progress Bar */}
+        <div className="h-[2px] w-full bg-slate-900 rounded-full overflow-hidden mb-6 border border-white/5 relative">
+          <motion.div 
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-brand-600 via-brand-500 to-cyan-400 shadow-[0_0_15px_#026dc6]"
+            animate={{ width: `${progress}%` }}
+            transition={{ ease: "easeOut", duration: 0.1 }}
+          />
+        </div>
+
+        {/* Status updates with staggered animations */}
+        <div className="h-6 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.p 
+              key={statusIndex}
+              initial={{ y: 15, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -15, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-xs md:text-sm font-bold uppercase tracking-wider text-brand-400/80"
+            >
+              {statuses[statusIndex]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 // --- Main App ---
 
 export default function App() {
   const [view, setView] = useState<'home' | 'services'>('home');
+  const [loading, setLoading] = useState(true);
 
   const handleNavigate = (target: string) => {
     if (target === 'services') {
@@ -953,22 +1065,30 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-brand-600 selection:text-white overflow-x-hidden">
-      <Navbar onNavigate={handleNavigate} />
-      <main>
-        <Hero />
-        <Problem />
-        <Solution onNavigate={handleNavigate} />
-        <Portfolio />
-        <ExpertServicesMini onExplore={() => setView('services')} />
-        <Expertise />
-        <Process />
-        <Pricing />
-        <FAQ />
-        <FinalCTA />
-      </main>
-      <Footer onNavigate={handleNavigate} />
-      <StickyWhatsApp />
-    </div>
+    <>
+      <AnimatePresence mode="wait">
+        {loading && (
+          <IntroPreloader onComplete={() => setLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-brand-600 selection:text-white overflow-x-hidden">
+        <Navbar onNavigate={handleNavigate} />
+        <main>
+          <Hero />
+          <Problem />
+          <Solution onNavigate={handleNavigate} />
+          <Portfolio />
+          <ExpertServicesMini onExplore={() => setView('services')} />
+          <Expertise />
+          <Process />
+          <Pricing />
+          <FAQ />
+          <FinalCTA />
+        </main>
+        <Footer onNavigate={handleNavigate} />
+        <StickyWhatsApp />
+      </div>
+    </>
   );
 }
